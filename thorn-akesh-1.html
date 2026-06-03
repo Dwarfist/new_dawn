@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Республика Акеш — Путеводитель Игрока</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #080c12;
+        --paper: #0d1219;
+        --steel: #2e5c8a;
+        --steel-dim: #1a3a5c;
+        --steel-glow: #4a8abf;
+        --steel-bright: #6aaed4;
+        --gold: #c9a84c;
+        --gold-dim: #7a6030;
+        --text: #c8d4e0;
+        --text-dim: #6a7a8a;
+        --border: #151e2a;
+        --ember: #8b5a2b;
+        --danger: #8b2020;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.75;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 10% 5%,
+            rgba(46, 92, 138, 0.15) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 90% 95%,
+            rgba(46, 92, 138, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(8, 12, 18, 0.97) 0%,
+            transparent 100%
+          );
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .page {
+        max-width: 840px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* HEADER */
+      .header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeDown 1s ease both;
+      }
+
+      .header-eyebrow {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.8rem, 5.5vw, 3.4rem);
+        font-weight: 700;
+        color: var(--steel-bright);
+        text-shadow:
+          0 0 60px rgba(46, 92, 138, 0.7),
+          0 0 120px rgba(46, 92, 138, 0.3),
+          2px 2px 0 rgba(0, 0, 0, 0.7);
+        line-height: 1.15;
+        letter-spacing: 0.04em;
+      }
+
+      .header-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        color: var(--steel-dim);
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .header-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 1.5rem;
+      }
+
+      .header-ornament::before,
+      .header-ornament::after {
+        content: "";
+        flex: 1;
+        max-width: 160px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--steel),
+          transparent
+        );
+      }
+
+      .diamond {
+        width: 7px;
+        height: 7px;
+        background: var(--steel-glow);
+        transform: rotate(45deg);
+        box-shadow: 0 0 10px var(--steel-glow);
+      }
+
+      /* INTRO */
+      .intro-block {
+        background: linear-gradient(
+          135deg,
+          rgba(46, 92, 138, 0.1),
+          rgba(8, 12, 18, 0.8)
+        );
+        border: 1px solid rgba(46, 92, 138, 0.25);
+        border-left: 3px solid var(--steel);
+        padding: 26px 30px;
+        margin-bottom: 3.5rem;
+        font-style: italic;
+        font-size: 1.05em;
+        color: var(--text);
+        position: relative;
+        animation: fadeIn 1.4s ease 0.3s both;
+      }
+
+      .intro-block::before {
+        content: "❝";
+        font-family: Georgia, serif;
+        font-size: 3em;
+        color: var(--steel);
+        position: absolute;
+        top: -10px;
+        left: 18px;
+        line-height: 1;
+        opacity: 0.6;
+      }
+
+      /* SECTIONS */
+      .section {
+        margin-bottom: 3.5rem;
+        opacity: 0;
+        transform: translateY(18px);
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      .section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .section:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+      .section:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(8) {
+        animation-delay: 0.45s;
+      }
+      .section:nth-child(9) {
+        animation-delay: 0.5s;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 1.4rem;
+      }
+
+      .section-badge {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #080c12;
+        background: var(--steel);
+        padding: 3px 9px;
+        white-space: nowrap;
+      }
+
+      .section-badge.danger {
+        background: var(--danger);
+      }
+
+      .section-badge.gold {
+        background: var(--gold-dim);
+        color: #c8d4e0;
+      }
+
+      h2 {
+        font-family: "Cinzel", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.05em;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(46, 92, 138, 0.4), transparent);
+      }
+
+      .section-body p {
+        color: #b0c0d0;
+        margin-bottom: 0.75rem;
+      }
+
+      /* STAT ROW */
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-bottom: 1.5rem;
+      }
+
+      .stat {
+        background: var(--paper);
+        padding: 1.1rem 1.3rem;
+        text-align: center;
+      }
+
+      .stat-value {
+        font-family: "Cinzel", serif;
+        font-size: 1.3rem;
+        color: var(--steel-bright);
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      /* FACT GRID */
+      .fact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 1rem;
+      }
+
+      .fact-card {
+        background: var(--paper);
+        border: 1px solid rgba(74, 138, 191, 0.12);
+        border-top: 2px solid var(--steel-dim);
+        padding: 20px 22px;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+      }
+
+      .fact-card:hover {
+        border-top-color: var(--steel-glow);
+        transform: translateY(-2px);
+      }
+
+      .fact-icon {
+        font-size: 1.3em;
+        margin-bottom: 0.6rem;
+        display: block;
+      }
+
+      .fact-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--steel-glow);
+        margin-bottom: 0.6rem;
+      }
+
+      .fact-card p {
+        font-size: 0.91em;
+        color: #8aa0b8;
+        line-height: 1.65;
+      }
+
+      /* SENATE TABLE */
+      .senate-layers {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .senate-layer {
+        background: var(--paper);
+        padding: 1.4rem 1.6rem;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+        transition: background 0.2s;
+      }
+
+      .senate-layer:hover {
+        background: #111820;
+      }
+
+      .senate-layer-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.85rem;
+        color: var(--steel-bright);
+        letter-spacing: 0.08em;
+        margin-bottom: 0.3rem;
+      }
+
+      .senate-layer-tag {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .senate-layer-desc {
+        font-size: 0.92em;
+        color: #8aa0b8;
+        line-height: 1.65;
+      }
+
+      /* RACES */
+      .race-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .race-item {
+        background: var(--paper);
+        padding: 1.2rem 1.6rem;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+        transition: background 0.2s;
+      }
+
+      .race-item:hover {
+        background: #111820;
+      }
+
+      .race-name-col {
+        border-right: 1px solid var(--border);
+        padding-right: 1.5rem;
+      }
+
+      .race-name {
+        font-family: "Cinzel", serif;
+        font-size: 0.9rem;
+        color: var(--steel-bright);
+        margin-bottom: 0.2rem;
+      }
+
+      .race-share {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        letter-spacing: 0.08em;
+      }
+
+      .race-desc {
+        font-size: 0.92em;
+        color: #8aa0b8;
+        line-height: 1.65;
+      }
+
+      /* CITIES */
+      .cities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .city-card {
+        background: var(--paper);
+        padding: 1.4rem 1.6rem;
+        position: relative;
+        transition: background 0.25s;
+      }
+
+      .city-card:hover {
+        background: #111820;
+      }
+
+      .city-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--steel-dim);
+        transition: background 0.25s;
+      }
+
+      .city-card:hover::before {
+        background: var(--steel-glow);
+      }
+
+      .city-card.capital::before {
+        background: var(--gold-dim);
+      }
+      .city-card.capital:hover::before {
+        background: var(--gold);
+      }
+
+      .city-name {
+        font-family: "Cinzel", serif;
+        font-size: 1rem;
+        color: var(--steel-bright);
+        margin-bottom: 0.15rem;
+        letter-spacing: 0.05em;
+      }
+
+      .city-card.capital .city-name {
+        color: var(--gold);
+      }
+
+      .city-pop {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 0.7rem;
+      }
+
+      .city-desc {
+        font-size: 0.91rem;
+        color: #8aa0b8;
+        line-height: 1.65;
+      }
+
+      .city-tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 0.75rem;
+      }
+
+      .city-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: 1px solid var(--steel-dim);
+        color: var(--steel-dim);
+        padding: 0.12rem 0.5rem;
+      }
+
+      .city-tag.gold-tag {
+        border-color: var(--gold-dim);
+        color: var(--gold-dim);
+      }
+
+      /* INFO BLOCK */
+      .info-block {
+        background: rgba(46, 92, 138, 0.06);
+        border: 1px solid rgba(46, 92, 138, 0.2);
+        border-left: 3px solid var(--steel-dim);
+        padding: 18px 22px;
+        margin-top: 1rem;
+      }
+
+      .info-block p {
+        font-size: 0.93em;
+        color: #8aa0b8;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-block p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* WARNING */
+      .warning-block {
+        background: rgba(139, 32, 32, 0.07);
+        border: 1px solid rgba(139, 32, 32, 0.25);
+        border-left: 3px solid var(--danger);
+        padding: 18px 22px;
+        margin-top: 1.25rem;
+      }
+
+      .warning-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c04040;
+        margin-bottom: 0.5rem;
+      }
+
+      .warning-block p {
+        font-size: 0.92em;
+        color: #a08080;
+      }
+
+      /* HOOKS LIST */
+      .hooks-list {
+        list-style: none;
+        margin-top: 1rem;
+      }
+
+      .hooks-list li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(46, 92, 138, 0.08);
+        font-size: 0.94em;
+        color: #a0b8c8;
+      }
+
+      .hooks-list li:last-child {
+        border-bottom: none;
+      }
+
+      .hook-marker {
+        color: var(--steel-glow);
+        flex-shrink: 0;
+        margin-top: 3px;
+        font-size: 0.7em;
+      }
+
+      /* ШТРАФБАТ */
+      .penal-block {
+        background: rgba(139, 32, 32, 0.05);
+        border: 1px solid rgba(139, 32, 32, 0.2);
+        padding: 1.6rem;
+        margin-top: 1rem;
+        position: relative;
+      }
+
+      .penal-block::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--danger), transparent);
+      }
+
+      .penal-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.9rem;
+        color: #c04040;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+      }
+
+      .penal-block p {
+        font-size: 0.92em;
+        color: #a08080;
+        margin-bottom: 0.6rem;
+        line-height: 1.65;
+      }
+
+      .penal-block p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 2.5rem 0;
+      }
+
+      /* FOOTER */
+      .footer-note {
+        text-align: center;
+        color: var(--text-dim);
+        font-style: italic;
+        font-size: 0.85rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 1.7rem;
+        }
+        .senate-layer {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        .race-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        .race-name-col {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding-right: 0;
+          padding-bottom: 0.75rem;
+        }
+        .cities-grid {
+          grid-template-columns: 1fr;
+        }
+        .stat-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 10, 8, 0.92);
+        border-bottom: 1px solid rgba(139, 26, 26, 0.4);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.75rem 2rem;
+        font-family: &quot;Cinzel&quot;, serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      "
+    >
+      <a href="index.html" style="color: #c8a96e; text-decoration: none">МИР</a>
+      <a href="thorn-races-1.html" style="color: #c8a96e; text-decoration: none"
+        >НАРОДЫ</a
+      >
+      <a
+        href="thorn-economy-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >БЫТ И ВАЛЮТА</a
+      >
+      <a href="thorn-akesh-1.html" style="color: #8b1a1a; text-decoration: none"
+        >АКЕШ</a
+      >
+      <a
+        href="thorn-free-cities-1-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ВОЛЬНЫЕ ГОРОДА</a
+      >
+      <a
+        href="thorn-wastes-guide_2.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ДИКИЕ ТЕРРИТОРИИ</a
+      >
+    </nav>
+    <div style="height: 48px"></div>
+    <div class="page">
+      <!-- HEADER -->
+      <div class="header">
+        <div class="header-eyebrow">Руководство игрока · Государства Торна</div>
+        <h1>Республика Акеш</h1>
+        <div class="header-sub">Вместе или никак</div>
+        <div class="header-ornament"><div class="diamond"></div></div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="intro-block">
+        Акеш не просит тебя любить его. Он просит тебя работать, держаться рядом
+        и помнить, что за стенами — смерть. Тысячу лет это работало. Тысячу лет
+        люди, дварфы, гоблины и кобольды строили что-то живое из пепла. И
+        теперь, когда мир снова начинает меняться, Акеш стоит крепче всех — и
+        меньше всех понимает, что грядёт.
+      </div>
+
+      <div class="sections">
+        <!-- ОБЗОР -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Обзор</span>
+            <h2>Что такое Акеш</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat">
+              <span class="stat-value">~800 000</span>
+              <span class="stat-label">Население</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">6</span>
+              <span class="stat-label">Городов</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">1000 ПР</span>
+              <span class="stat-label">Текущий год</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">Совет</span>
+              <span class="stat-label">Форма правления</span>
+            </div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Объединённая Республика Акеш — крупнейшее государство Торна.
+              Основанное в дварфийских подземных крепостях во времена Тёмных
+              Веков, оно выросло из союза выживших в нечто большее: государство
+              с законами, технологиями и главное — с характером.
+            </p>
+            <p>
+              Акеш не империя и не диктатура. Это государство которое помнит что
+              такое настоящее вымирание. Индекс рождаемости едва выше единицы.
+              Каждый человек на счету. Отсюда — и забота о гражданах, и
+              жёсткость когда эта забота заканчивается.
+            </p>
+            <p>
+              За горами Акеш называют Республикой с пренебрежением — мол,
+              бюрократы за камнем. Внутри его называют домом.
+            </p>
+          </div>
+        </div>
+
+        <!-- МЕНТАЛИТЕТ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Культура</span>
+            <h2>Менталитет акешита</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Акешит не рождается патриотом. Он им становится — потому что
+              выбора нет, и потому что этот выбор имеет смысл. Тысяча лет
+              совместного выживания оставила след глубже любой идеологии.
+            </p>
+          </div>
+          <div class="fact-grid">
+            <div class="fact-card">
+              <span class="fact-icon">🤝</span>
+              <div class="fact-title">Прагматичная солидарность</div>
+              <p>
+                Не альтруизм и не слепая любовь к государству. Простое
+                понимание: если упадёт сосед — упадёшь и ты. Акешит будет
+                спорить, жульничать, ненавидеть чиновника — но при внешней
+                угрозе встанет рядом без слов.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">⚙️</span>
+              <div class="fact-title">Культ полезности</div>
+              <p>
+                Здесь уважают тех, кто делает что-то руками и головой.
+                Бездельник — не грешник, но и не свой. Работа это не наказание —
+                это способ доказать что ты часть целого.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🏗️</span>
+              <div class="fact-title">Гордость построенным</div>
+              <p>
+                Акешиты смотрят на свои города и видят чудо. Потому что знают —
+                их деды жили в темноте под землёй. То что стоит сейчас отвоёвано
+                у смерти буквально. Это не пропаганда. Это правда.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🔒</span>
+              <div class="fact-title">Недоверие к чужакам</div>
+              <p>
+                Не враждебность — осторожность. Акешит открыт к тому кто
+                работает рядом и держит слово. Но чужак из Баронств получает
+                вежливую холодность пока не докажет что не угроза. Доверие здесь
+                зарабатывают делом, не словами.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">📋</span>
+              <div class="fact-title">Вера в систему</div>
+              <p>
+                Система несовершенна — все знают. Сенаторы берут взятки — все
+                знают. Но система работает. Поезда ходят. Еда есть. Нежить за
+                стенами. Пока работает — трогать незачем.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">😶</span>
+              <div class="fact-title">Молчание о неудобном</div>
+              <p>
+                Про кристаллы Шрамов не говорят. Про штрафбат говорят шёпотом.
+                Про странных людей которые вернулись изменёнными — стараются не
+                думать. Не из страха. Просто некоторые вещи лучше не трогать.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- РАСЫ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge gold">Народы</span>
+            <h2>Расы Акеша</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Акеш — многорасовое государство не по идеологии а по
+              необходимости. Каждый народ занял нишу в которой был незаменим. Со
+              временем эти ниши стали культурой.
+            </p>
+          </div>
+          <div class="race-list">
+            <div class="race-item">
+              <div class="race-name-col">
+                <div class="race-name">Люди</div>
+                <div class="race-share">Большинство</div>
+              </div>
+              <div class="race-desc">
+                Администраторы, солдаты, торговцы, политики. Самый
+                многочисленный народ занимает всё что не занято другими. В
+                Совете — старые человеческие роды держат основные несменяемые
+                места. На улице — просто большинство. Адаптируются ко всему и
+                везде. Это и сила и слабость.
+              </div>
+            </div>
+
+            <div class="race-item">
+              <div class="race-name-col">
+                <div class="race-name">Дварфы</div>
+                <div class="race-share">~20%</div>
+              </div>
+              <div class="race-desc">
+                Основатели и хранители. Дварфийские роды держат несменяемые
+                места в Совете наравне с людьми. В повседневной жизни —
+                инженеры, архитекторы, и главное: Бюро Учёта. Система очков
+                пользы это дварфийское изобретение. Педантичные, нейтральные, с
+                реестрами в крови — они считают всё и всех. Новые поколения не
+                видят в этом ничего странного. Старые иногда молчат о том что
+                видят.
+              </div>
+            </div>
+
+            <div class="race-item">
+              <div class="race-name-col">
+                <div class="race-name">Гоблины</div>
+                <div class="race-share">~12%</div>
+              </div>
+              <div class="race-desc">
+                Технократы снизу. Шумные, хаотичные, параноидальные — и
+                незаменимые. Их место в Совете плавающее, но они там почти
+                всегда потому что постоянно что-то изобретают. Алхимия,
+                взрывчатка, паровые механизмы — гоблинское. Их изобретения редко
+                работают как задумано. Зато всегда производят эффект. В городах
+                держатся в нижних кварталах — шумно, дымно, зато своё.
+              </div>
+            </div>
+
+            <div class="race-item">
+              <div class="race-name-col">
+                <div class="race-name">Кобольды</div>
+                <div class="race-share">~10%</div>
+              </div>
+              <div class="race-desc">
+                Технократы сверху. Точнее гоблинов, тише гоблинов, злопамятнее
+                гоблинов. Их конструкции работают стабильно — это ценится. В
+                Совете держат место через компетентность и доказывают его каждое
+                поколение заново. Глубинная металлургия, точная механика,
+                подземные системы — кобольдское. С гоблинами в состоянии вечной
+                холодной войны за звание "кто на самом деле придумал паровой
+                клапан".
+              </div>
+            </div>
+
+            <div class="race-item">
+              <div class="race-name-col">
+                <div class="race-name">Полурослики</div>
+                <div class="race-share">~8%</div>
+              </div>
+              <div class="race-desc">
+                Связные и посредники. Официально — торговцы, курьеры,
+                разведчики, бюрократические помощники. Неофициально — те кто
+                знает где что лежит и кому это нужно. Бронепоезда строят дварфы,
+                но кто возит по ним нужный груз нужным людям — все понимают. В
+                Тенях полуросликов непропорционально много. Это не совпадение.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- СОВЕТ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Власть</span>
+            <h2>Совет Сенаторов</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Акешем правит Совет — не один человек, не один народ. Это принцип
+              заложенный в основание государства: никому нельзя доверять
+              единолично. Совет делится на три слоя которые постоянно друг с
+              другом торгуются.
+            </p>
+          </div>
+          <div class="senate-layers">
+            <div class="senate-layer">
+              <div>
+                <div class="senate-layer-title">Основатели</div>
+                <div class="senate-layer-tag">Несменяемые места</div>
+              </div>
+              <div class="senate-layer-desc">
+                Старые человеческие и дварфийские роды. Их места переходят по
+                наследству и традиции — никто не голосует за них, они просто
+                есть. Консервативны, осторожны, связаны между собой сетью браков
+                и долгов столетней давности. Смотрят на технократов с уважением
+                которое граничит с подозрением. Хранят традицию не из ностальгии
+                — из понимания что традиция это то что выжило.
+              </div>
+            </div>
+
+            <div class="senate-layer">
+              <div>
+                <div class="senate-layer-title">Технократы</div>
+                <div class="senate-layer-tag">Плавающие места</div>
+              </div>
+              <div class="senate-layer-desc">
+                Гоблины и кобольды которые заработали место компетентностью.
+                Каждое поколение доказывают заново — их места не наследуются.
+                Это давление делает их агрессивными в продвижении идей.
+                Энергичнее основателей, прагматичнее, менее сентиментальны.
+                Недолюбливают тех кто сидит по праву рождения. Между гоблинскими
+                и кобольдскими технократами — своя отдельная война амбиций.
+              </div>
+            </div>
+
+            <div class="senate-layer">
+              <div>
+                <div class="senate-layer-title">Особые</div>
+                <div class="senate-layer-tag">Одно поколение</div>
+              </div>
+              <div class="senate-layer-desc">
+                Те кого весь Совет единогласно решил включить. Реальные герои —
+                люди которые сделали что-то исключительное для государства.
+                Полурослик унявший восстание Теней. Инженер спасший три города
+                от нежити. Их место длится одно поколение. Они не политики — они
+                живые легенды за столом. Их нельзя уволить и нельзя купить.
+                Говорят неудобную правду. Основатели их терпят. Технократы
+                используют как союзников.
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <p>
+              Совет работает медленно. Три слоя с разными интересами редко
+              приходят к быстрым решениям. Это иногда спасает от ошибок. Иногда
+              — не даёт вовремя среагировать на то что происходит прямо сейчас.
+            </p>
+          </div>
+        </div>
+
+        <!-- СИСТЕМА ОЧКОВ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Общество</span>
+            <h2>Система очков пользы</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Каждый гражданин Акеша зарабатывает очки пользы обществу. Каждая
+              работа даёт определённое количество в месяц. Держишь уровень
+              несколько месяцев — тебе повышают минимум, повышают зарплату,
+              повышают позицию.
+            </p>
+            <p>
+              Это не тоталитаризм. Среднестатистический человек выходит на
+              минимум без усилий. Государство не давит — оно стимулирует. Если
+              что-то не получается — с тобой говорят, пытаются найти работу по
+              духу. Люди ценный ресурс и это не просто слова.
+            </p>
+          </div>
+          <div class="fact-grid">
+            <div class="fact-card">
+              <span class="fact-icon">📊</span>
+              <div class="fact-title">Бюро Учёта</div>
+              <p>
+                Дварфийский орган который считает всё. Реестры, книги, записи.
+                Несколько поколений дварфов выросли здесь и не видят в этом
+                ничего странного. Нейтральны формально. На практике — часть
+                системы.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🎭</span>
+              <div class="fact-title">Забытые профессии</div>
+              <p>
+                Художник, бард, философ — система не умеет их посчитать. Они не
+                исчезли. Они сползли вниз. Официально работаешь докером. По
+                вечерам рисуешь. Серая культура в щелях системы — живая и
+                настоящая.
+              </p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-icon">🃏</span>
+              <div class="fact-title">Игра в очки</div>
+              <p>
+                Люди неизбежно нашли способы выглядеть полезными. Знать что
+                считается. Помочь с записями. Это не коррупция в грубом смысле —
+                это адаптация. Бюро знает. Смотрит сквозь пальцы на мелкое. Не
+                на крупное.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ДУН МОРОГ И ГОРОДА -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">География</span>
+            <h2>Города Акеша</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Хребет делит мир: к северу — Вольные Баронства и джунгли, к югу —
+              Акеш. Дун Морог стоит в самом хребте. Отсюда два акешитских города
+              уходят вдоль горы, а четыре бывших имперских разбросаны восточнее
+              — до самого побережья океана. Города разрозненные, расстояния
+              большие. Бронепоезда держат их вместе.
+            </p>
+          </div>
+          <div class="cities-grid">
+            <div class="city-card capital">
+              <div class="city-name">Дун Морог</div>
+              <div class="city-pop">
+                ★ Столица · ~200 000 жителей · Акешитская постройка
+              </div>
+              <div class="city-desc">
+                Крепость Камня. Древний дварфийский город внутри горы,
+                основанный ещё до Багрового Заката. Уровни идут сверху вниз:
+                наверху — тишина старых залов, резьба которую никто не читает,
+                гнёзда для ламп занятые газовыми горелками. Здесь заседает
+                Совет. Посередине — густонаселённые кварталы где потомки тех кто
+                не видел неба. Внизу — грохот металлургии, бронепоезда, Тени.
+                Столица пахнет историей сверху и углём снизу.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag gold-tag">Столица</span>
+                <span class="city-tag gold-tag">Совет</span>
+                <span class="city-tag">Дварфийская постройка</span>
+                <span class="city-tag">До-закатный</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Коверн</div>
+              <div class="city-pop">
+                ~150 000 жителей · Акешитская постройка
+              </div>
+              <div class="city-desc">
+                Промышленное сердце Акеша. Построен у подножия хребта —
+                наполовину в скале, наполовину снаружи. Каждую ночь призраки
+                приходят со стороны пустошей, каждый день нежить бродит у стен.
+                Жители здесь другие — привычные к тому что смерть это не
+                абстракция а расписание. Военный гарнизон огромный. Воздух в
+                дыму от заводов и огнемётов одновременно.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Металлургия</span>
+                <span class="city-tag">Пограничный</span>
+                <span class="city-tag">Нежить у стен</span>
+                <span class="city-tag">Военный</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Салтер</div>
+              <div class="city-pop">~140 000 жителей · Бывший имперский</div>
+              <div class="city-desc">
+                Главная железнодорожная развязка Акеша. Бронепоезда уходят
+                отсюда во все стороны — к хребту, к побережью, к остальным
+                городам. Имперская архитектура здесь хорошо сохранилась,
+                акешитские пристройки встраивались аккуратно. Полуросликов
+                непропорционально много. Говорят что через Салтер проходит
+                половина торговли Акеша и треть того о чём Совету знать
+                необязательно.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Торговля</span>
+                <span class="city-tag">Железная дорога</span>
+                <span class="city-tag">Имперская постройка</span>
+                <span class="city-tag">Полурослики</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Вэйхольд</div>
+              <div class="city-pop">~110 000 жителей · Бывший имперский</div>
+              <div class="city-desc">
+                Имперский город доставшийся Акешу после тяжёлых потерь. Залы
+                Стражей здесь стоят нетронутые — массивные двери без ручек, без
+                замков снаружи. Те кто пытался войти не вернулись. Официальный
+                приказ: не подходить, не трогать, забыть о существовании. Дети
+                играют рядом. Взрослые стараются не смотреть в ту сторону. Город
+                живёт и растёт — просто с несколькими кварталами которых как
+                будто нет.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Имперская постройка</span>
+                <span class="city-tag">Залы Стражей</span>
+                <span class="city-tag">Не подходить</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Умхар</div>
+              <div class="city-pop">~90 000 жителей · Бывший имперский</div>
+              <div class="city-desc">
+                Тихий и сытый. Здесь сосредоточена подземная агрокультура —
+                огромные фермы глубоко под городом кормят значительную часть
+                Акеша. Кобольды в большинстве, город организован до занудства.
+                Имперские системы работают исправно, акешиты их не трогают —
+                незачем. Говорят Умхар это единственный город где всегда тихо и
+                всегда есть еда. Жители соглашаются. Добавляют что скучно.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Агрокультура</span>
+                <span class="city-tag">Кобольды</span>
+                <span class="city-tag">Имперская постройка</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Лазурная Гавань</div>
+              <div class="city-pop">~110 000 жителей · Бывший имперский</div>
+              <div class="city-desc">
+                Самый далёкий город Акеша — на восточном побережье, у океана.
+                Достался почти без боя: имперские системы защиты были выключены,
+                город хорошо сохранился. Почти полностью человеческий, рыбацкий
+                по духу. Далеко от Совета, далеко от войн с нежитью, далеко от
+                всего. Иногда морским маршрутом доставляют грузы в Баронства —
+                тяжело, ни один из северных городов к морю не выходит. Чаще
+                снаряжают экспедиции в океан. Что там — никто пока не знает.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Побережье</span>
+                <span class="city-tag">Рыболовство</span>
+                <span class="city-tag">Имперская постройка</span>
+                <span class="city-tag">Экспедиции</span>
+                <span class="city-tag">Люди</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ШТРАФБАТ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge danger">Изнанка</span>
+            <h2>Штрафные батальоны</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Добрый Акеш заканчивается здесь. Если после всех попыток человек
+              не нашёл себя в системе — его не казнят и не бросают. Его
+              используют.
+            </p>
+          </div>
+          <div class="penal-block">
+            <div class="penal-title">Великая роль. Честь и слава.</div>
+            <p>
+              Официальная риторика такова: штрафбат это не наказание — это
+              призыв. Ты строишь железные дороги через пустоши. Исследуешь новые
+              территории. Посещаешь Шрамы. Ты делаешь то что обычный гражданин
+              не может. Это величие.
+            </p>
+            <p>
+              Неофициально: возвращается меньше половины. Все знают. Никто не
+              говорит вслух.
+            </p>
+            <p>
+              Туда попадают те кто не вписался — бунтари, странные, непохожие. В
+              Шрамах полный контроль, никакого доброго Акеша. Каждый вздох стоит
+              труда. Те кто выходит оттуда живым — выходят другими. Не всегда
+              понятно чем именно.
+            </p>
+          </div>
+          <div class="warning-block">
+            <div class="warning-label">⚠ Для игроков из штрафбата</div>
+            <p>
+              Шрамы — аномальные зоны где физика и реальность ведут себя не так
+              как положено. Там странно. Там опасно. Люди которые провели там
+              много времени возвращаются с новыми привычками и новыми страхами.
+            </p>
+          </div>
+        </div>
+
+        <!-- ТЕНИ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge danger">Изнанка</span>
+            <h2>Тени</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Преступность в Акеше организована. Настолько организована что один
+              из шести городов почти полностью под её контролем. Тени — не
+              просто криминал. Это параллельная структура которая давно
+              переросла в нечто большее.
+            </p>
+            <p>
+              Однажды их попытались уничтожить. Полурослик-герой унял восстание.
+              Получил место в Совете. Тени ушли глубже — и поняли кое-что
+              важное.
+            </p>
+          </div>
+          <div class="info-block">
+            <p>
+              Тени не переходят границы. Не дестабилизируют государство. Мутят
+              странное, держат свои кварталы, зарабатывают серые деньги — но
+              когда надо, делают и для государства. Не из любви. Из того же
+              инстинкта что у всех акешитов: лучше быть частью Акеша чем без
+              него.
+            </p>
+            <p>
+              Это сюрреалистично. Преступная организация которая разделяет
+              государственный менталитет. Акеш это терпит — потому что Тени
+              полезны, управляемы и понимают правила игры. Пока понимают.
+            </p>
+          </div>
+        </div>
+
+        <!-- ЧТО ЗНАЕТ ЖИТЕЛЬ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Знание</span>
+            <h2>Что знает обычный акешит</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <ul class="hooks-list">
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Акеш кормит, защищает и даёт работу. Взамен — работай, держись
+                рядом, не раскачивай лодку. Это честная сделка и большинство на
+                неё согласно.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Очки пользы — это не слежка. Это стимул. Среднестатистический
+                человек выходит на минимум без усилий. Если не получается — с
+                тобой поговорят и помогут найти место.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Штрафбат существует. Туда попадают те кто совсем не нашёл себя.
+                Говорят это честь и великая роль. Говорят не все возвращаются.
+                Оба утверждения верны.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Тени есть. Все знают. Официально с ними борются. Неофициально
+                они часть города как канализация — неприятно но необходимо. Не
+                связывайся без нужды.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Про кристаллы Шрамов не говорят. Про испытания оружия в
+                Баронствах не знают. Акеш богат — почему, мало кто задаётся
+                вопросом. Богат и хорошо.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >В некоторых имперских городах есть запертые залы. Официальный
+                приказ — не подходить. Те кто подходил не возвращались. Этого
+                достаточно чтобы не подходить.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Республика Акеш · 1000-й год Нового Рассвета · Вместе или никак
+      </div>
+    </div>
+  </body>
+</html>

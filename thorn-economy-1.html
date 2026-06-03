@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Торн — Валюта и Быт</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #09080a;
+        --paper: #100f12;
+        --purple: #5a3a7a;
+        --purple-dim: #3a2550;
+        --purple-glow: #8a5abf;
+        --gold: #c9a84c;
+        --gold-dim: #7a6030;
+        --silver: #a0b0c0;
+        --silver-dim: #5a6a7a;
+        --platinum: #d0e0f0;
+        --text: #ccc8d8;
+        --text-dim: #6a6575;
+        --border: #1a1820;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.75;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 15% 10%,
+            rgba(90, 58, 122, 0.14) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 85% 90%,
+            rgba(90, 58, 122, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(9, 8, 10, 0.97) 0%,
+            transparent 100%
+          );
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .page {
+        max-width: 820px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* HEADER */
+      .header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeDown 1s ease both;
+      }
+
+      .header-eyebrow {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(2rem, 6vw, 3.4rem);
+        font-weight: 700;
+        color: var(--purple-glow);
+        text-shadow:
+          0 0 60px rgba(90, 58, 122, 0.7),
+          0 0 120px rgba(90, 58, 122, 0.3),
+          2px 2px 0 rgba(0, 0, 0, 0.7);
+        line-height: 1.15;
+      }
+
+      .header-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        color: var(--purple-dim);
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .header-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 1.5rem;
+      }
+
+      .header-ornament::before,
+      .header-ornament::after {
+        content: "";
+        flex: 1;
+        max-width: 160px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--purple),
+          transparent
+        );
+      }
+
+      .diamond {
+        width: 7px;
+        height: 7px;
+        background: var(--purple-glow);
+        transform: rotate(45deg);
+        box-shadow: 0 0 10px var(--purple-glow);
+      }
+
+      /* INTRO */
+      .intro-block {
+        background: linear-gradient(
+          135deg,
+          rgba(90, 58, 122, 0.1),
+          rgba(9, 8, 10, 0.8)
+        );
+        border: 1px solid rgba(90, 58, 122, 0.25);
+        border-left: 3px solid var(--purple);
+        padding: 26px 30px;
+        margin-bottom: 3.5rem;
+        font-style: italic;
+        font-size: 1.05em;
+        color: var(--text);
+        position: relative;
+        animation: fadeIn 1.4s ease 0.3s both;
+      }
+
+      .intro-block::before {
+        content: "❝";
+        font-family: Georgia, serif;
+        font-size: 3em;
+        color: var(--purple);
+        position: absolute;
+        top: -10px;
+        left: 18px;
+        line-height: 1;
+        opacity: 0.6;
+      }
+
+      /* SECTIONS */
+      .section {
+        margin-bottom: 3.5rem;
+        opacity: 0;
+        transform: translateY(18px);
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      .section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 1.4rem;
+      }
+
+      .section-badge {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #09080a;
+        background: var(--purple);
+        padding: 3px 9px;
+        white-space: nowrap;
+      }
+
+      .section-badge.gold {
+        background: var(--gold-dim);
+        color: var(--text);
+      }
+      .section-badge.silver {
+        background: var(--silver-dim);
+        color: var(--text);
+      }
+
+      h2 {
+        font-family: "Cinzel", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.05em;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(90, 58, 122, 0.4), transparent);
+      }
+
+      .section-body p {
+        color: #b8b0c8;
+        margin-bottom: 0.75rem;
+      }
+
+      /* COIN CARDS */
+      .coins-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .coin-card {
+        background: var(--paper);
+        padding: 1.8rem 1.6rem;
+        position: relative;
+        transition: background 0.25s;
+      }
+
+      .coin-card:hover {
+        background: #141218;
+      }
+
+      .coin-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        transition: opacity 0.25s;
+      }
+
+      .coin-card.platinum::before {
+        background: linear-gradient(90deg, var(--platinum), #8ab0d0);
+      }
+      .coin-card.gold::before {
+        background: linear-gradient(90deg, var(--gold), #e8c870);
+      }
+      .coin-card.silver::before {
+        background: linear-gradient(90deg, var(--silver), #c8d8e8);
+      }
+
+      .coin-symbol {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+        display: block;
+      }
+
+      .coin-name {
+        font-family: "Cinzel", serif;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+        letter-spacing: 0.05em;
+      }
+
+      .coin-card.platinum .coin-name {
+        color: var(--platinum);
+      }
+      .coin-card.gold .coin-name {
+        color: var(--gold);
+      }
+      .coin-card.silver .coin-name {
+        color: var(--silver);
+      }
+
+      .coin-origin {
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 0.8rem;
+      }
+
+      .coin-desc {
+        font-size: 0.91em;
+        color: #9890a8;
+        line-height: 1.65;
+      }
+
+      /* EXCHANGE */
+      .exchange-block {
+        background: rgba(90, 58, 122, 0.07);
+        border: 1px solid rgba(90, 58, 122, 0.2);
+        border-left: 3px solid var(--purple-dim);
+        padding: 1.4rem 1.6rem;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .exchange-item {
+        text-align: center;
+      }
+
+      .exchange-value {
+        font-family: "Cinzel", serif;
+        font-size: 1.4rem;
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+
+      .exchange-item:nth-child(1) .exchange-value {
+        color: var(--platinum);
+      }
+      .exchange-item:nth-child(3) .exchange-value {
+        color: var(--gold);
+      }
+      .exchange-item:nth-child(5) .exchange-value {
+        color: var(--silver);
+      }
+
+      .exchange-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .exchange-sep {
+        font-family: "Cinzel", serif;
+        font-size: 1.2rem;
+        color: var(--purple-dim);
+      }
+
+      /* PRICES TABLE */
+      .prices-wrap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .prices-block {
+        background: var(--paper);
+        padding: 1.6rem;
+      }
+
+      .prices-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .prices-block.akesh .prices-title {
+        color: var(--silver);
+      }
+      .prices-block.cities .prices-title {
+        color: var(--gold);
+      }
+
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        font-size: 0.93em;
+      }
+
+      .price-row:last-child {
+        border-bottom: none;
+      }
+
+      .price-item {
+        color: #a8a0b8;
+      }
+
+      .price-value {
+        font-family: "Cinzel", serif;
+        font-size: 0.88rem;
+        letter-spacing: 0.05em;
+      }
+
+      .prices-block.akesh .price-value {
+        color: var(--silver);
+      }
+      .prices-block.cities .price-value {
+        color: var(--gold);
+      }
+
+      /* FOOD SECTION */
+      .food-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 1rem;
+      }
+
+      .food-card {
+        background: var(--paper);
+        border: 1px solid rgba(90, 58, 122, 0.12);
+        border-top: 2px solid var(--purple-dim);
+        padding: 1.4rem;
+        transition: border-color 0.3s;
+      }
+
+      .food-card:hover {
+        border-top-color: var(--purple-glow);
+      }
+
+      .food-icon {
+        font-size: 1.4em;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .food-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--purple-glow);
+        margin-bottom: 0.5rem;
+      }
+
+      .food-card p {
+        font-size: 0.91em;
+        color: #9890a8;
+        line-height: 1.65;
+      }
+
+      /* INFO BLOCK */
+      .info-block {
+        background: rgba(90, 58, 122, 0.06);
+        border: 1px solid rgba(90, 58, 122, 0.18);
+        border-left: 3px solid var(--purple-dim);
+        padding: 18px 22px;
+        margin-top: 1rem;
+      }
+
+      .info-block p {
+        font-size: 0.93em;
+        color: #9890a8;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-block p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 2.5rem 0;
+      }
+
+      /* FOOTER */
+      .footer-note {
+        text-align: center;
+        color: var(--text-dim);
+        font-style: italic;
+        font-size: 0.85rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+        .coins-grid {
+          grid-template-columns: 1fr;
+        }
+        .exchange-block {
+          gap: 1rem;
+        }
+        .prices-wrap {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 10, 8, 0.92);
+        border-bottom: 1px solid rgba(139, 26, 26, 0.4);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.75rem 2rem;
+        font-family: &quot;Cinzel&quot;, serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      "
+    >
+      <a href="index.html" style="color: #c8a96e; text-decoration: none">МИР</a>
+      <a href="thorn-races-1.html" style="color: #c8a96e; text-decoration: none"
+        >НАРОДЫ</a
+      >
+      <a
+        href="thorn-economy-1.html"
+        style="color: #8b1a1a; text-decoration: none"
+        >БЫТ И ВАЛЮТА</a
+      >
+      <a href="thorn-akesh-1.html" style="color: #c8a96e; text-decoration: none"
+        >АКЕШ</a
+      >
+      <a
+        href="thorn-free-cities-1-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ВОЛЬНЫЕ ГОРОДА</a
+      >
+      <a
+        href="thorn-wastes-guide_2.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ДИКИЕ ТЕРРИТОРИИ</a
+      >
+    </nav>
+    <div style="height: 48px"></div>
+    <div class="page">
+      <div class="header">
+        <div class="header-eyebrow">Руководство игрока · Экономика Торна</div>
+        <h1>Деньги и Быт</h1>
+        <div class="header-sub">Чем платят. Что едят. Как живут.</div>
+        <div class="header-ornament"><div class="diamond"></div></div>
+      </div>
+
+      <div class="intro-block">
+        Торн пережил апокалипсис — и деньги пережили вместе с ним.
+      </div>
+
+      <div class="sections">
+        <!-- ВАЛЮТЫ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Валюта</span>
+            <h2>Три монеты мира</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="coins-grid">
+            <div class="coin-card platinum">
+              <span class="coin-symbol">✦</span>
+              <div class="coin-name">Имперская монета</div>
+              <div class="coin-origin">Платина · Империя Древних</div>
+              <div class="coin-desc">
+                Старые. Тяжёлые. На каждой — символика Империи которой больше
+                нет. Теперь просто металл. Очень дорогой металл. Принимаются
+                везде без вопросов — и везде смотрят на них чуть дольше чем
+                нужно. Некоторые говорят что монеты стали чуть теплее в руке.
+                Большинство считает это суеверием, ведь никогда их в руках не
+                держало.
+              </div>
+            </div>
+
+            <div class="coin-card gold">
+              <span class="coin-symbol">◆</span>
+              <div class="coin-name">Городская монета</div>
+              <div class="coin-origin">Золото · Вольные Города</div>
+              <div class="coin-desc">
+                Каждый из семи городов чеканит свою — разные гербы, разные
+                профили правителей, но вес и проба единые. Монет в обращении
+                меньше чем акешских кредитов, поэтому номинально дороже. В Акеше
+                принимают с лёгким снисхождением. В Городах — основная валюта.
+              </div>
+            </div>
+
+            <div class="coin-card silver">
+              <span class="coin-symbol">◈</span>
+              <div class="coin-name">Акешский кредит</div>
+              <div class="coin-origin">Серебро · Республика Акеш</div>
+              <div class="coin-desc">
+                Массовая валюта крупнейшего государства. Чеканка чёткая, герб
+                Совета на аверсе, год на реверсе. Их много — Бюро Учёта следит
+                за эмиссией строго. В Вольных Городах принимают, но морщатся:
+                слишком много бюрократии на одной монете. За горами ходит
+                присказка — акешский кредит звенит как закон и весит как
+                обязательство.
+              </div>
+            </div>
+          </div>
+
+          <div class="exchange-block">
+            <div class="exchange-item">
+              <span class="exchange-value">1 ✦</span>
+              <span class="exchange-label">Платина</span>
+            </div>
+            <span class="exchange-sep">=</span>
+            <div class="exchange-item">
+              <span class="exchange-value">100 ◆</span>
+              <span class="exchange-label">Золото</span>
+            </div>
+            <span class="exchange-sep">=</span>
+            <div class="exchange-item">
+              <span class="exchange-value">300 ◈</span>
+              <span class="exchange-label">Серебро</span>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <p>
+              Мелкой разменной монеты нет. Если сдачи не хватает —
+              договариваются. Это нормально и никого не удивляет.
+            </p>
+            <p>
+              Имперскими монетами платят за крупные сделки, артефакты и
+              серьёзные взятки. Если кто-то расплатился платиной за ужин — это
+              повод насторожиться.
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ЦЕНЫ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge silver">Цены</span>
+            <h2>Сколько что стоит</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Базовые цены на жильё и еду. Оружие, снаряжение и услуги —
+              отдельный разговор с каждым торговцем.
+            </p>
+          </div>
+
+          <div class="prices-wrap">
+            <div class="prices-block akesh">
+              <div class="prices-title">Акеш — серебряные кредиты ◈</div>
+              <div class="price-row">
+                <span class="price-item">Обед (первое, второе, компот)</span>
+                <span class="price-value">3 ◈</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Выпивка за вечер</span>
+                <span class="price-value">2 ◈</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Ночь в таверне (обычный номер)</span>
+                <span class="price-value">15 ◈</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Аренда комнаты на неделю</span>
+                <span class="price-value">80 ◈</span>
+              </div>
+            </div>
+
+            <div class="prices-block cities">
+              <div class="prices-title">Вольные Города — золотые монеты ◆</div>
+              <div class="price-row">
+                <span class="price-item">Обед</span>
+                <span class="price-value">1 ◆</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Выпивка за вечер</span>
+                <span class="price-value">1 ◆</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Ночь в таверне (обычный номер)</span>
+                <span class="price-value">4 ◆</span>
+              </div>
+              <div class="price-row">
+                <span class="price-item">Аренда комнаты на неделю</span>
+                <span class="price-value">20 ◆</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <p>
+              В Городах дешевле — путешественников больше, конкуренция выше. В
+              Акеше цены стабильные: государство субсидирует базовое, рынок
+              существует поверх этого.
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ЕДА -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge gold">Быт</span>
+            <h2>Что едят в Торне</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="food-grid">
+            <div class="food-card">
+              <span class="food-icon">🍄</span>
+              <div class="food-title">Акешская кухня</div>
+              <p>
+                Тысяча лет под землёй оставила след. Грибы, мох, подземные
+                корнеплоды — основа рациона до сих пор. С выходом на поверхность
+                появились нормальные овощи и зерно. Рыба из Лазурной Гавани —
+                деликатес для среднего класса. Мясо редкость: животноводства
+                почти нет, дичь из пустошей никто есть не хочет.
+              </p>
+            </div>
+
+            <div class="food-card">
+              <span class="food-icon">🌿</span>
+              <div class="food-title">Кухня Вольных Городов</div>
+              <p>
+                Джунгли дают многое. Фрукты, охота, речная рыба — всё доступнее
+                чем в Акеше. Мясо здесь норма, а не роскошь. Акешский торговец
+                за столом с жареным кабаном испытывает лёгкий внутренний
+                дискомфорт которого сам не понимает.
+              </p>
+            </div>
+
+            <div class="food-card">
+              <span class="food-icon">🍽️</span>
+              <div class="food-title">Культура еды</div>
+              <p>
+                Акешиты не выбрасывают еду. Никогда. Это не закон — это в крови.
+                Ребёнка который оставил что-то на тарелке осудят сильнее чем
+                нарушителя комендантского часа. Тысяча лет грибного пайка на
+                всех не забывается.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Торн · 1000-й год Нового Рассвета · Деньги те же. Мир другой.
+      </div>
+    </div>
+  </body>
+</html>

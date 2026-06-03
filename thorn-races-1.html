@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Народы Торна</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e0b08;
+        --paper: #1a1510;
+        --gold: #c9a84c;
+        --gold-dim: #7a6030;
+        --red: #8b2020;
+        --text: #d4c9b0;
+        --text-dim: #8a7d65;
+        --border: #2e2518;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.75;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+        position: relative;
+      }
+
+      .header::after {
+        content: "";
+        display: block;
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 1.5rem auto 0;
+      }
+
+      .header-eyebrow {
+        font-family: "EB Garamond", serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold-dim);
+        margin-bottom: 0.75rem;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        font-weight: 700;
+        color: var(--gold);
+        text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+        line-height: 1.2;
+      }
+
+      .header-sub {
+        font-style: italic;
+        color: var(--text-dim);
+        margin-top: 0.5rem;
+        font-size: 1rem;
+      }
+
+      /* Race card */
+      .race {
+        margin-bottom: 2.5rem;
+        border-left: 2px solid var(--gold-dim);
+        padding-left: 1.75rem;
+        position: relative;
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.5s ease forwards;
+      }
+
+      .race:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .race:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .race:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .race:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .race:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .race::before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 0.4rem;
+        width: 8px;
+        height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(201, 168, 76, 0.6);
+      }
+
+      .race-name {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.15rem;
+        color: var(--gold);
+        margin-bottom: 0.2rem;
+      }
+
+      .race-tagline {
+        font-style: italic;
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        margin-bottom: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      .quote {
+        border-left: none;
+        padding: 0.6rem 1rem;
+        background: rgba(201, 168, 76, 0.05);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        font-style: italic;
+        color: var(--text-dim);
+        font-size: 0.92rem;
+        margin-bottom: 0.85rem;
+        position: relative;
+      }
+
+      .quote::before {
+        content: "❝";
+        color: var(--gold-dim);
+        font-size: 1.2rem;
+        position: absolute;
+        left: 0.3rem;
+        top: 0.3rem;
+        line-height: 1;
+      }
+
+      .race-body {
+        font-size: 0.97rem;
+        color: var(--text);
+      }
+
+      .race-body p + p {
+        margin-top: 0.5rem;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+      }
+
+      .tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: 1px solid var(--gold-dim);
+        color: var(--gold-dim);
+        padding: 0.15rem 0.55rem;
+        border-radius: 2px;
+      }
+
+      /* Divider */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 2.5rem 0;
+      }
+
+      /* Footer note */
+      .footer-note {
+        text-align: center;
+        color: var(--text-dim);
+        font-style: italic;
+        font-size: 0.88rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 10, 8, 0.92);
+        border-bottom: 1px solid rgba(139, 26, 26, 0.4);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.75rem 2rem;
+        font-family: &quot;Cinzel&quot;, serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      "
+    >
+      <a href="index.html" style="color: #c8a96e; text-decoration: none">МИР</a>
+      <a href="thorn-races-1.html" style="color: #8b1a1a; text-decoration: none"
+        >НАРОДЫ</a
+      >
+      <a
+        href="thorn-economy-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >БЫТ И ВАЛЮТА</a
+      >
+      <a href="thorn-akesh-1.html" style="color: #c8a96e; text-decoration: none"
+        >АКЕШ</a
+      >
+      <a
+        href="thorn-free-cities-1-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ВОЛЬНЫЕ ГОРОДА</a
+      >
+      <a
+        href="thorn-wastes-guide_2.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ДИКИЕ ТЕРРИТОРИИ</a
+      >
+    </nav>
+    <div style="height: 48px"></div>
+    <div class="page">
+      <div class="header">
+        <div class="header-eyebrow">Руководство игрока</div>
+        <h1>Народы Торна</h1>
+        <div class="header-sub">Те, кто пережил Багровый Закат</div>
+      </div>
+
+      <div class="races">
+        <div class="race">
+          <div class="race-name">Люди</div>
+          <div class="race-tagline">Наследники павшей Империи</div>
+          <div class="quote">
+            Мы построили мир, который поджёг небо. И всё равно отстроили его
+            заново.
+          </div>
+          <div class="race-body">
+            <p>
+              Когда-то люди были хребтом великой Империи Древних — её солдатами,
+              чиновниками, магами и торговцами. Именно их правители запустили
+              ритуал, превративший небо в багровое зарево. Именно они
+              расплатились за это первыми.
+            </p>
+            <p>
+              Тысячу лет спустя люди — самый многочисленный народ Торна. Они не
+              помнят Империи, не чтят её и боятся даже упоминать. Зато знают,
+              как выживать. Именно это умение и сделало их большинством.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Адаптивность</span>
+            <span class="tag">Политика</span>
+            <span class="tag">Торговля</span>
+            <span class="tag">Основная раса</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="race">
+          <div class="race-name">Дварфы</div>
+          <div class="race-tagline">Нейтральные счётоводы</div>
+          <div class="quote">Мы не выбирали стороны. Мы выбирали золото.</div>
+          <div class="race-body">
+            <p>
+              В Тёмные Века именно дварфские подземные города стали ковчегами
+              для выживших. Они кормили, защищали и хоронили чужаков — и делали
+              это расчётливо, с реестрами и процентами. Сегодня дварфы —
+              старейшая и наиболее уважаемая культура Торна, хранители
+              инженерных знаний и подземной архитектуры.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Инженерия</span>
+            <span class="tag">Традиции</span>
+            <span class="tag">Нейтралитет</span>
+            <span class="tag">Подземные города</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="race">
+          <div class="race-name">Полурослики</div>
+          <div class="race-tagline">Тени дварфских городов</div>
+          <div class="quote">
+            Нас никто не звал. Мы просто оказались в нужном месте в нужное
+            время.
+          </div>
+          <div class="race-body">
+            <p>
+              Полурослики всегда жили рядом с дварфами — в нижних ярусах
+              городов, в торговых кварталах, в щелях между законом и
+              беспределом. Не слуги и не союзники — скорее постоянные соседи,
+              которых терпят за полезность.
+            </p>
+            <p>
+              Там, где дварф прорубит тоннель кувалдой, полурослик найдёт уже
+              готовый. Они непревзойдённые разведчики, контрабандисты и
+              посредники. В Эпоху Городов именно они первыми протянули торговые
+              маршруты между городами — потому что бронепоезда строят дварфы, но
+              кто возит по ним нужный груз нужным людям, все знают.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Торговля</span>
+            <span class="tag">Разведка</span>
+            <span class="tag">Связи</span>
+            <span class="tag">Городское дно</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="race">
+          <div class="race-name">Гоблины</div>
+          <div class="race-tagline">Инженеры хаоса</div>
+          <div class="quote">
+            Мы молчим, когда нас называют дикарями, ведь за нас говорят бомбы.
+          </div>
+          <div class="race-body">
+            <p>
+              Тёмные Века научили их мастерить вещи из подручных средств. После
+              - улучшать. Потом - изобретать. Совеременные гоблины - шумные,
+              хаотичные, параноидальные - и при этом одни из лучших механиков и
+              взрывотехников Торна. Правда их изобретения редко работают так,
+              как задумано. Задо всегда есть эффект.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Алхимия</span>
+            <span class="tag">Взрывчатка</span>
+            <span class="tag">Импровизация</span>
+            <span class="tag">Хаос</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="race">
+          <div class="race-name">Кобольды</div>
+          <div class="race-tagline">Инженеры порядка</div>
+          <div class="quote">
+            Дайте нам чертёж, время и тишину. Остальное — детали, а детали мы
+            считаем лучше всех.
+          </div>
+          <div class="race-body">
+            <p>
+              Кобольды пережили Багровый Закат не силой и не числом, а порядком.
+              Пока мир рушился, они вели учёт: кто что умеет, где запасы, чья
+              очередь дежурить у воды. Иерархия, выстроенная в первые тёмные
+              годы, держала их вместе тогда, когда всё остальное рассыпалось.
+            </p>
+            <p>
+              Современные кобольды — мастера глубинной металлургии и точной
+              механики. Их конструкции работают так, как написано в чертеже, и
+              чертёж этот выверен до последнего винта. Маленькие,
+              дисциплинированные, злопамятные — они не прощают ни забытого
+              долга, ни украденной идеи. И помнят дольше, чем живут.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Механика</span>
+            <span class="tag">Иерархия</span>
+            <span class="tag">Подземелья</span>
+            <span class="tag">Злопамятность</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Это не полная история народов Торна — лишь то, что каждый образованный
+        житель знает с детства.<br />
+        Остальное придётся узнавать самим.
+      </div>
+    </div>
+  </body>
+</html>

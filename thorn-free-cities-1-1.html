@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вольные Города — Путеводитель Игрока</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0d0a;
+        --paper: #111510;
+        --green: #4a7c59;
+        --green-dim: #2e4d38;
+        --green-glow: #6aad80;
+        --gold: #c9a84c;
+        --gold-dim: #7a6030;
+        --text: #cfd4c0;
+        --text-dim: #7a8a70;
+        --border: #1e2a1e;
+        --ember: #8b5a2b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.75;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 15% 10%,
+            rgba(74, 124, 89, 0.12) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 85% 90%,
+            rgba(74, 124, 89, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(10, 13, 10, 0.95) 0%,
+            transparent 100%
+          );
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .page {
+        max-width: 820px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* HEADER */
+      .header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeDown 1s ease both;
+      }
+
+      .header-eyebrow {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(2rem, 6vw, 3.6rem);
+        font-weight: 700;
+        color: var(--green-glow);
+        text-shadow:
+          0 0 60px rgba(74, 124, 89, 0.6),
+          0 0 120px rgba(74, 124, 89, 0.3),
+          2px 2px 0 rgba(0, 0, 0, 0.6);
+        line-height: 1.15;
+        letter-spacing: 0.04em;
+      }
+
+      .header-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.3em;
+        color: var(--green-dim);
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .header-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 1.5rem;
+      }
+
+      .header-ornament::before,
+      .header-ornament::after {
+        content: "";
+        flex: 1;
+        max-width: 160px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--green),
+          transparent
+        );
+      }
+
+      .diamond {
+        width: 7px;
+        height: 7px;
+        background: var(--green-glow);
+        transform: rotate(45deg);
+        box-shadow: 0 0 10px var(--green-glow);
+      }
+
+      /* INTRO */
+      .intro-block {
+        background: linear-gradient(
+          135deg,
+          rgba(74, 124, 89, 0.1),
+          rgba(10, 13, 10, 0.7)
+        );
+        border: 1px solid rgba(74, 124, 89, 0.25);
+        border-left: 3px solid var(--green);
+        padding: 26px 30px;
+        margin-bottom: 3.5rem;
+        font-style: italic;
+        font-size: 1.05em;
+        color: var(--text);
+        position: relative;
+        animation: fadeIn 1.4s ease 0.3s both;
+      }
+
+      .intro-block::before {
+        content: "❝";
+        font-family: Georgia, serif;
+        font-size: 3em;
+        color: var(--green);
+        position: absolute;
+        top: -10px;
+        left: 18px;
+        line-height: 1;
+        opacity: 0.6;
+      }
+
+      /* SECTIONS */
+      .section {
+        margin-bottom: 3.5rem;
+        opacity: 0;
+        transform: translateY(18px);
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      .section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .section:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 1.4rem;
+      }
+
+      .section-badge {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #0a0d0a;
+        background: var(--green);
+        padding: 3px 9px;
+        white-space: nowrap;
+      }
+
+      h2 {
+        font-family: "Cinzel", serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.05em;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(74, 124, 89, 0.4), transparent);
+      }
+
+      .section-body p {
+        color: #bec9b0;
+        margin-bottom: 0.75rem;
+      }
+
+      /* CITIES GRID */
+      .cities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+      }
+
+      .city-card {
+        background: var(--paper);
+        padding: 1.5rem 1.6rem;
+        position: relative;
+        transition: background 0.25s;
+      }
+
+      .city-card:hover {
+        background: #151a14;
+      }
+
+      .city-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--green-dim);
+        transition: background 0.25s;
+      }
+
+      .city-card:hover::before {
+        background: var(--green-glow);
+      }
+
+      .city-name {
+        font-family: "Cinzel", serif;
+        font-size: 1rem;
+        color: var(--green-glow);
+        margin-bottom: 0.15rem;
+        letter-spacing: 0.05em;
+      }
+
+      .city-ruler {
+        font-size: 0.82rem;
+        color: var(--gold-dim);
+        font-style: italic;
+        margin-bottom: 0.6rem;
+        letter-spacing: 0.02em;
+      }
+
+      .city-ruler strong {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      .city-pop {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      .city-desc {
+        font-size: 0.91rem;
+        color: #a8b89a;
+        line-height: 1.65;
+      }
+
+      .city-tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 0.75rem;
+      }
+
+      .city-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: 1px solid var(--green-dim);
+        color: var(--green-dim);
+        padding: 0.12rem 0.5rem;
+        border-radius: 1px;
+      }
+
+      /* INFO BLOCKS */
+      .info-block {
+        background: rgba(74, 124, 89, 0.06);
+        border: 1px solid rgba(74, 124, 89, 0.18);
+        border-left: 3px solid var(--green-dim);
+        padding: 18px 22px;
+        margin-top: 1rem;
+      }
+
+      .info-block p {
+        font-size: 0.93em;
+        color: #a8b89a;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-block p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* WARNING */
+      .warning-block {
+        background: rgba(139, 90, 43, 0.07);
+        border: 1px solid rgba(139, 90, 43, 0.25);
+        border-left: 3px solid var(--ember);
+        padding: 18px 22px;
+        margin-top: 1.25rem;
+      }
+
+      .warning-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ember);
+        margin-bottom: 0.5rem;
+      }
+
+      .warning-block p {
+        font-size: 0.92em;
+        color: #a89878;
+      }
+
+      /* HOOKS LIST */
+      .hooks-list {
+        list-style: none;
+        margin-top: 1rem;
+      }
+
+      .hooks-list li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(74, 124, 89, 0.08);
+        font-size: 0.94em;
+        color: #b8c8a8;
+      }
+
+      .hooks-list li:last-child {
+        border-bottom: none;
+      }
+
+      .hook-marker {
+        color: var(--green-glow);
+        flex-shrink: 0;
+        margin-top: 3px;
+        font-size: 0.7em;
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 2.5rem 0;
+      }
+
+      /* FOOTER */
+      .footer-note {
+        text-align: center;
+        color: var(--text-dim);
+        font-style: italic;
+        font-size: 0.85rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .cities-grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 1.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 10, 8, 0.92);
+        border-bottom: 1px solid rgba(139, 26, 26, 0.4);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.75rem 2rem;
+        font-family: &quot;Cinzel&quot;, serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      "
+    >
+      <a href="index.html" style="color: #c8a96e; text-decoration: none">МИР</a>
+      <a href="thorn-races-1.html" style="color: #c8a96e; text-decoration: none"
+        >НАРОДЫ</a
+      >
+      <a
+        href="thorn-economy-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >БЫТ И ВАЛЮТА</a
+      >
+      <a href="thorn-akesh-1.html" style="color: #c8a96e; text-decoration: none"
+        >АКЕШ</a
+      >
+      <a
+        href="thorn-free-cities-1-1.html"
+        style="color: #8b1a1a; text-decoration: none"
+        >ВОЛЬНЫЕ ГОРОДА</a
+      >
+      <a
+        href="thorn-wastes-guide_2.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ДИКИЕ ТЕРРИТОРИИ</a
+      >
+    </nav>
+    <div style="height: 48px"></div>
+    <div class="page">
+      <!-- HEADER -->
+      <div class="header">
+        <div class="header-eyebrow">Руководство игрока · Вольные Города</div>
+        <h1>Семь Городов</h1>
+        <div class="header-sub">Наследники без наследства</div>
+        <div class="header-ornament"><div class="diamond"></div></div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="intro-block">
+        Вы выросли в городе, который помнит Империю лучше, чем сами жители.
+        Стены хранят её память. Системы работают по её законам. А ключ в руках
+        вашего правителя — единственное что отделяет ваш дом от хаоса джунглей.
+      </div>
+
+      <div class="sections">
+        <!-- ЧТО ТАКОЕ ВОЛЬНЫЕ ГОРОДА -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Обзор</span>
+            <h2>Что такое Вольные Города</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Вольные Города — семь городов в тропических лесах, уцелевших после
+              Багрового Заката не благодаря дварфским убежищам и не благодаря
+              удаче. Они выжили потому что Империя строила их на века. Защитные
+              системы продолжали работать. Нежить не проходила сквозь стены.
+              Мёртвые не поднимались на улицах.
+            </p>
+            <p>
+              Акеш называет эти земли Баронствами — с пренебрежением, как
+              называют дикарей за горами. Сами жители так себя не называют.
+              Каждый город — это отдельный мир со своим именем, своим правителем
+              и своей тысячелетней историей.
+            </p>
+            <p>
+              Здесь нет единого закона. Нет общей армии. Нет союзов которые
+              живут дольше одной войны. Есть только семь городов, семь ключей и
+              бесконечная борьба за то кто из них важнее.
+            </p>
+          </div>
+        </div>
+
+        <!-- КЛЮЧИ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Власть</span>
+            <h2>Ключи и правители</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Каждым городом управляет не человек — управляет ключ. Физический
+              артефакт имперской работы, который даёт его владельцу ограниченный
+              доступ к городским системам. Открыть ворота. Активировать защиту.
+              Менять температуру в залах. Мелочи — но мелочи которые решают всё.
+            </p>
+            <p>
+              Ключ не передаётся по крови сам по себе. Его передают — из рук в
+              руки, при свидетелях, по традиции. Пока ключ в руках твоей
+              родословной, город признаёт тебя управляющим. Потеряешь ключ —
+              потеряешь всё.
+            </p>
+          </div>
+          <div class="info-block">
+            <p>
+              Никто никогда не захватывает чужой ключ насовсем. Держать два
+              города одновременно — значит стать мишенью для всех остальных
+              пяти. Войны идут не за захват, а за унижение и ресурсы.
+            </p>
+            <p>
+              Ключ хранится как самая важная реликвия рода. Его прячут,
+              охраняют, о нём слагают легенды. И за него убивают.
+            </p>
+          </div>
+        </div>
+
+        <!-- ВОЙНА -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Политика</span>
+            <h2>Война каждые четыре года</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              Войны в джунглях не ведут круглый год. Сезон дождей — смерть для
+              армий. Нежить в пустошах между городами не разбирает своих и
+              чужих. Воевать можно только в узкое окно — и все это знают.
+            </p>
+            <p>
+              Раз в четыре года это окно открывается. Города формируют коалиции,
+              двигают армии, договариваются с соседями. Коалиции живут ровно до
+              первой победы — после чего союзники немедленно начинают делить то,
+              что только что взяли вместе.
+            </p>
+            <p>
+              Баланса не бывает никогда. Всегда кто-то сильнее. Всегда кто-то на
+              грани. Это не недостаток системы — это и есть система.
+            </p>
+          </div>
+          <div class="warning-block">
+            <div class="warning-label">⚠ Важно знать</div>
+            <p>
+              Акеш продаёт взрывчатку всем. Охотно, по хорошей цене и без лишних
+              вопросов. Все понимают зачем — и всё равно покупают. Выбора нет.
+            </p>
+          </div>
+        </div>
+
+        <!-- ЗАЛЫ СТРАЖЕЙ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Тайна</span>
+            <h2>Залы Стражей</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="section-body">
+            <p>
+              В каждом из семи городов есть двери которые не открываются.
+              Массивные, имперской работы, без ручек и замков с внешней стороны.
+              Что за ними — никто не знает. Те кто пытался вскрыть силой не
+              возвращались.
+            </p>
+            <p>
+              Легенды говорят разное. Имперские арсеналы. Спящие армии.
+              Хранилища магии. Правда в том что последний приказ Комтура Ордена
+              Стражей запер эти залы — и этот приказ никто не отменял.
+            </p>
+            <p>
+              Дети в городах играют рядом с этими дверьми. Взрослые стараются не
+              смотреть в их сторону. Правители делают вид что их не существует.
+              Но все знают — там что-то есть.
+            </p>
+          </div>
+        </div>
+
+        <!-- СЕМЬ ГОРОДОВ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Города</span>
+            <h2>Семь Городов</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="cities-grid">
+            <div class="city-card">
+              <div class="city-name">Солнечная Корона</div>
+              <div class="city-ruler">
+                Владыка Короны — <strong>Кайрен Со</strong>, 54 года
+              </div>
+              <div class="city-pop">130 000 жителей</div>
+              <div class="city-desc">
+                Янтарный камень, здания расходятся от центра лучами. Самый
+                большой и красивый из семи. Дни здесь длинные — джунгли
+                отступают, солнце не уходит до поздней ночи. Кайрен Со держит
+                лицо, но город трещит: агро-системы ведут себя странно,
+                продовольствия не хватает. Что-то меняется в самом городе — и
+                никто не понимает что.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Крупнейший</span>
+                <span class="city-tag">Кризис</span>
+                <span class="city-tag">Янтарь</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Чёрный Виток</div>
+              <div class="city-ruler">
+                Регент — <strong>Миэль Даррох</strong>, 41 год
+              </div>
+              <div class="city-pop">95 000 жителей</div>
+              <div class="city-desc">
+                Спиральная планировка — улицы закручиваются к центру по тёмному
+                базальту. Чем глубже в спираль, тем выше статус. Правитель здесь
+                называется Регентом — управляет от имени законного хозяина до
+                его возвращения. Тысячу лет ждут. Миэль Даррох холодна,
+                расчётлива и верит в это буквально.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Базальт</span>
+                <span class="city-tag">Традиция</span>
+                <span class="city-tag">Второй по силе</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Ревущая Вода</div>
+              <div class="city-ruler">
+                Поднебесный — <strong>Тавэн Ксури</strong>, 38 лет
+              </div>
+              <div class="city-pop">80 000 жителей</div>
+              <div class="city-desc">
+                Город построен вертикально вдоль водопада. Чем выше живёшь — тем
+                выше статус. Поднебесный живёт у самого истока, над облаками и
+                шумом воды. Тавэн Ксури молод и агрессивен — город богат
+                энергией водопада, и он намерен это использовать.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Вертикаль</span>
+                <span class="city-tag">Энергия</span>
+                <span class="city-tag">Амбиции</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Висячий Сад</div>
+              <div class="city-ruler">
+                Хранитель Ярусов — <strong>Сэйна Волхв</strong>, 62 года
+              </div>
+              <div class="city-pop">70 000 жителей</div>
+              <div class="city-desc">
+                Здания соединены мостами на разных уровнях. Нижнего города почти
+                не видно сверху — всё скрыто в зелени и переходах. Сэйна Волхв
+                знает больше всех и говорит меньше всех. В городе есть что-то от
+                мистики — имя Волхв носит семья уже восемь поколений.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Ярусы</span>
+                <span class="city-tag">Мосты</span>
+                <span class="city-tag">Загадочность</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Туманный Порог</div>
+              <div class="city-ruler">
+                Привратник — <strong>Лиран Кхо</strong>, 33 года
+              </div>
+              <div class="city-pop">55 000 жителей</div>
+              <div class="city-desc">
+                Низкий город, широкие здания почти без окон. Постоянный туман из
+                джунглей делает его невидимым издалека — кроме Врат. Огромные
+                имперские Врата это единственное что чётко видно. Лиран Кхо
+                контролирует кто входит и выходит. В тумане это абсолютная
+                власть.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Туман</span>
+                <span class="city-tag">Врата</span>
+                <span class="city-tag">Контроль</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Пепельный Свод</div>
+              <div class="city-ruler">
+                Хранитель Пепла — <strong>Дорэн Умаш</strong>, 67 лет
+              </div>
+              <div class="city-pop">40 000 жителей</div>
+              <div class="city-desc">
+                Приземистые купола и широкие арки из серого камня. Город
+                выглядит старым даже по меркам Вольных Городов. Дорэн Умаш самый
+                пожилой из правителей — устал, но цепок. Пепельный Свод мал и
+                беден, зато стоит так давно что все остальные привыкли его не
+                трогать.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Купола</span>
+                <span class="city-tag">Серый камень</span>
+                <span class="city-tag">Выживание</span>
+              </div>
+            </div>
+
+            <div class="city-card">
+              <div class="city-name">Костяной Чертог</div>
+              <div class="city-ruler">
+                Верховный Жрец — <strong>Ваэль Морн</strong>, 45 лет
+              </div>
+              <div class="city-pop">30 000 жителей</div>
+              <div class="city-desc">
+                Белый-белый камень, гладкие поверхности. Самый маленький город —
+                и единственный на который никто не нападает. Конструкты в
+                глубине города собирают химер из костей. Это имперское наследие
+                некромантов, которое никуда не делось. Ваэль Морн правит как
+                жрец — власть через веру в город как живое божество. На них не
+                нападают. Даже самые смелые предпочитают обойти стороной.
+              </div>
+              <div class="city-tag-row">
+                <span class="city-tag">Некромантия</span>
+                <span class="city-tag">Химеры</span>
+                <span class="city-tag">Культ города</span>
+                <span class="city-tag">Не трогать</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ЧТО ЗНАЕТ ЖИТЕЛЬ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Знание</span>
+            <h2>Что знает каждый житель</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <ul class="hooks-list">
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Город защищает тебя. Системы работают — или почти работают.
+                Нежить не заходит за стены. Это не само собой разумеется — это
+                причина почему твои предки выжили, а не чьи-то другие.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Ключ — это власть. У кого ключ, тот и правит. Это не метафора —
+                это буквально механика управления городом. Потеря ключа означает
+                конец рода.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Залы Стражей не открываются. Не пытайся. Те кто пытался не
+                вернулись. Там что-то есть — но это не твоё дело и никогда не
+                было.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Акеш богатый и опасный. Они продают оружие и задают вопросы
+                потом. Никому не доверяй кто приехал с юга с хорошей ценой и
+                широкой улыбкой.</span
+              >
+            </li>
+            <li>
+              <span class="hook-marker">◆</span>
+              <span
+                >Война раз в четыре года — это порядок вещей. Готовься. Корми
+                семью пока можно. И не удивляйся когда вчерашние союзники
+                становятся завтрашними врагами.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Вольные Города · 1000-й год Нового Рассвета · Семь городов. Семь ключей.
+        Один вопрос.
+      </div>
+    </div>
+  </body>
+</html>

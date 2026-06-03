@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Дикие территории Торна — Путеводитель Выжившего</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #080805;
+        --paper: #0f0d0a;
+        --ash: #2a2822;
+        --ash-light: #3d3a35;
+        --danger: #8b2020;
+        --danger-glow: #c04040;
+        --gold: #c9a84c;
+        --text: #d0c8b8;
+        --text-dim: #7a7268;
+        --border: #1f1c18;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "EB Garamond", Georgia, serif;
+        font-size: 16px;
+        line-height: 1.8;
+        min-height: 100vh;
+        padding: 2.5rem 1rem;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 20% 0%,
+            rgba(139, 32, 32, 0.15) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 80% 100%,
+            rgba(139, 32, 32, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(8, 8, 5, 0.98) 0%,
+            transparent 100%
+          );
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* HEADER */
+      .header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeDown 1s ease both;
+      }
+
+      .header-eyebrow {
+        font-family: "Cinzel", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 1.5rem;
+      }
+
+      h1 {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(2.2rem, 6vw, 3.8rem);
+        font-weight: 700;
+        color: var(--danger-glow);
+        text-shadow:
+          0 0 60px rgba(139, 32, 32, 0.8),
+          0 0 120px rgba(139, 32, 32, 0.3),
+          2px 2px 0 rgba(0, 0, 0, 0.8);
+        line-height: 1.1;
+        letter-spacing: 0.03em;
+      }
+
+      .header-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.25em;
+        color: var(--text-dim);
+        margin-top: 1rem;
+        text-transform: uppercase;
+        font-style: italic;
+      }
+
+      .header-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 2rem;
+      }
+
+      .header-ornament::before,
+      .header-ornament::after {
+        content: "";
+        flex: 1;
+        max-width: 160px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--danger),
+          transparent
+        );
+      }
+
+      .diamond {
+        width: 7px;
+        height: 7px;
+        background: var(--danger-glow);
+        transform: rotate(45deg);
+        box-shadow: 0 0 12px var(--danger-glow);
+      }
+
+      /* INTRO */
+      .intro-block {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 32, 32, 0.12),
+          rgba(8, 8, 5, 0.8)
+        );
+        border: 1px solid rgba(139, 32, 32, 0.3);
+        border-left: 3px solid var(--danger);
+        padding: 2rem 2.2rem;
+        margin-bottom: 4rem;
+        font-style: italic;
+        font-size: 1.05em;
+        color: #d4c4b0;
+        position: relative;
+        animation: fadeIn 1.3s ease 0.2s both;
+        line-height: 1.8;
+      }
+
+      .intro-block::before {
+        content: "⚰";
+        font-size: 2.2em;
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        opacity: 0.5;
+        line-height: 1;
+      }
+
+      /* SECTIONS */
+      .section {
+        margin-bottom: 4rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.7s ease forwards;
+      }
+
+      .section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .section:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 1.8rem;
+      }
+
+      .section-badge {
+        font-family: "Cinzel", serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #080805;
+        background: var(--danger);
+        padding: 4px 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      h2 {
+        font-family: "Cinzel", serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.05em;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(139, 32, 32, 0.4), transparent);
+      }
+
+      .section-body p {
+        margin-bottom: 1rem;
+        color: #c0b8a8;
+      }
+
+      /* ROUTE CARDS */
+      .routes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+
+      .route-card {
+        background: var(--paper);
+        padding: 1.8rem;
+        position: relative;
+        transition: background 0.25s;
+      }
+
+      .route-card:hover {
+        background: #131008;
+      }
+
+      .route-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--ash);
+        transition: background 0.25s;
+      }
+
+      .route-card:hover::before {
+        background: var(--danger-glow);
+      }
+
+      .route-name {
+        font-family: "Cinzel", serif;
+        font-size: 1.1rem;
+        color: var(--danger-glow);
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.04em;
+      }
+
+      .route-distance {
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 0.9rem;
+      }
+
+      .route-desc {
+        font-size: 0.95rem;
+        color: #a8a098;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      .route-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+
+      .route-tag {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid var(--ash-light);
+        color: var(--text-dim);
+        padding: 0.2rem 0.5rem;
+        border-radius: 1px;
+      }
+
+      /* UNDEAD TYPES */
+      .undead-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+
+      .undead-card {
+        background: var(--paper);
+        padding: 1.8rem;
+        border-top: 2px solid var(--ash);
+        transition:
+          border-color 0.25s,
+          background 0.25s;
+      }
+
+      .undead-card:hover {
+        background: #131008;
+        border-top-color: var(--danger-glow);
+      }
+
+      .undead-name {
+        font-family: "Cinzel", serif;
+        font-size: 1rem;
+        color: var(--danger-glow);
+        margin-bottom: 0.3rem;
+        letter-spacing: 0.04em;
+      }
+
+      .undead-activity {
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.8rem;
+      }
+
+      .undead-desc {
+        font-size: 0.94rem;
+        color: #a8a098;
+        line-height: 1.7;
+        margin-bottom: 0.8rem;
+      }
+
+      .undead-detail {
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        font-style: italic;
+        border-left: 2px solid var(--ash-light);
+        padding-left: 0.8rem;
+        margin-top: 0.8rem;
+      }
+
+      /* HAZARDS */
+      .hazard-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+
+      .hazard-item {
+        background: var(--paper);
+        padding: 1.5rem 1.8rem;
+        border-left: 3px solid var(--danger);
+        transition: background 0.25s;
+      }
+
+      .hazard-item:hover {
+        background: #131008;
+      }
+
+      .hazard-name {
+        font-family: "Cinzel", serif;
+        font-size: 0.95rem;
+        color: var(--danger-glow);
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.05em;
+      }
+
+      .hazard-desc {
+        font-size: 0.94rem;
+        color: #a8a098;
+        line-height: 1.7;
+      }
+
+      /* INFO BLOCKS */
+      .info-block {
+        background: rgba(139, 32, 32, 0.08);
+        border: 1px solid rgba(139, 32, 32, 0.2);
+        border-left: 3px solid var(--danger);
+        padding: 1.8rem;
+        margin: 1.5rem 0;
+      }
+
+      .info-title {
+        font-family: "Cinzel", serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--danger-glow);
+        margin-bottom: 0.8rem;
+      }
+
+      .info-block p {
+        font-size: 0.93em;
+        color: #a8a098;
+        margin-bottom: 0.6rem;
+        line-height: 1.7;
+      }
+
+      .info-block p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* RESOURCES */
+      .resource-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin: 1.5rem 0;
+      }
+
+      .resource-card {
+        background: var(--paper);
+        border: 1px solid rgba(201, 168, 76, 0.15);
+        border-top: 2px solid var(--gold);
+        padding: 1.5rem;
+        transition: border-color 0.3s;
+      }
+
+      .resource-card:hover {
+        border-top-color: var(--danger-glow);
+      }
+
+      .resource-icon {
+        font-size: 1.6em;
+        margin-bottom: 0.6rem;
+        display: block;
+      }
+
+      .resource-name {
+        font-family: "Cinzel", serif;
+        font-size: 0.9rem;
+        color: var(--gold);
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.04em;
+      }
+
+      .resource-desc {
+        font-size: 0.9em;
+        color: #8a8078;
+        line-height: 1.6;
+      }
+
+      /* DIVIDER */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 3rem 0;
+      }
+
+      /* FOOTER */
+      .footer-note {
+        text-align: center;
+        color: var(--text-dim);
+        font-style: italic;
+        font-size: 0.85rem;
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .routes-grid {
+          grid-template-columns: 1fr;
+        }
+        .undead-grid {
+          grid-template-columns: 1fr;
+        }
+        .resource-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 10, 8, 0.92);
+        border-bottom: 1px solid rgba(139, 26, 26, 0.4);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.75rem 2rem;
+        font-family: &quot;Cinzel&quot;, serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      "
+    >
+      <a href="index.html" style="color: #c8a96e; text-decoration: none">МИР</a>
+      <a href="thorn-races-1.html" style="color: #c8a96e; text-decoration: none"
+        >НАРОДЫ</a
+      >
+      <a
+        href="thorn-economy-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >БЫТ И ВАЛЮТА</a
+      >
+      <a href="thorn-akesh-1.html" style="color: #c8a96e; text-decoration: none"
+        >АКЕШ</a
+      >
+      <a
+        href="thorn-free-cities-1-1.html"
+        style="color: #c8a96e; text-decoration: none"
+        >ВОЛЬНЫЕ ГОРОДА</a
+      >
+      <a
+        href="thorn-wastes-guide_2.html"
+        style="color: #8b1a1a; text-decoration: none"
+        >ДИКИЕ ТЕРРИТОРИИ</a
+      >
+    </nav>
+    <div style="height: 48px"></div>
+    <div class="page">
+      <!-- HEADER -->
+      <div class="header">
+        <div class="header-eyebrow">Справочник первопроходца</div>
+        <h1>Дикие Территории</h1>
+        <div class="header-sub">Между городами — смерть и возможность</div>
+        <div class="header-ornament"><div class="diamond"></div></div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="intro-block">
+        Дикие территории — это не просто расстояние между городами. Это граница
+        между жизнью и смертью, между порядком и хаосом. Днём здесь бродит
+        нечисть, ночью приходят призраки. Но кто смел — тот найдёт то, что
+        потеряла цивилизация тысячу лет назад. Это справочник для тех кто
+        выходит за стены.
+      </div>
+
+      <div class="sections">
+        <!-- МАРШРУТЫ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">География</span>
+            <h2>Основные маршруты</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Между крупными городами Торна расстояния измеряются днями в пути.
+              Бронепоезда ходят по установленным маршрутам, останавливаются на
+              станциях. Но пустоши огромны, и между главными путями есть глубины
+              которые никто не исследовал. Или исследовал, но не вернулся.
+            </p>
+          </div>
+
+          <div class="routes-grid">
+            <div class="route-card">
+              <div class="route-name">Дун Морог → Коверн</div>
+              <div class="route-distance">1,100 км · 2–3 дня бронепоездом</div>
+              <div class="route-desc">
+                Основной маршрут вдоль хребта. Часто ходят официальные поезда.
+                Дорога проходит через предгорья, ночами нежить подходит к путям.
+                Днём относительно безопасно, но вообще не безопасно.
+              </div>
+              <div class="route-tags">
+                <span class="route-tag">Магистраль</span>
+                <span class="route-tag">Нежить</span>
+                <span class="route-tag">Часто</span>
+              </div>
+            </div>
+
+            <div class="route-card">
+              <div class="route-name">Коверн → Салтер</div>
+              <div class="route-distance">900 км · 2 дня бронепоездом</div>
+              <div class="route-desc">
+                Поезда идут по этому маршруту как часы. Инфраструктура хорошая,
+                станции укреплены. Но далеко от магистрали начинаются разбитые
+                дороги старой империи, которые почти никто не исследовал. Туда
+                никто не ездит.
+              </div>
+              <div class="route-tags">
+                <span class="route-tag">Безопасный</span>
+                <span class="route-tag">Развитая инфраструктура</span>
+                <span class="route-tag">Имперские руины</span>
+              </div>
+            </div>
+
+            <div class="route-card">
+              <div class="route-name">Акеш → Вольные Города</div>
+              <div class="route-distance">5,500 км · 5–7 дней через хребет</div>
+              <div class="route-desc">
+                Маршрут через горы. Бронепоезда поднимаются, пересекают хребет,
+                спускаются в джунгли. Это не один день, это экспедиция. По пути
+                встречаются остановки-крепости. Между ними — дикие пустоши где
+                нежить и природа делят власть поровну.
+              </div>
+              <div class="route-tags">
+                <span class="route-tag">Стратегический</span>
+                <span class="route-tag">Джунгли</span>
+                <span class="route-tag">Опасный</span>
+                <span class="route-tag">Торговля</span>
+              </div>
+            </div>
+
+            <div class="route-card">
+              <div class="route-name">Салтер → Умхар → Лазурная Гавань</div>
+              <div class="route-distance">~1,400 км · 3–4 дня бронепоездом</div>
+              <div class="route-desc">
+                Восточный маршрут через тайгу к побережью. Поезда ходят
+                регулярно — Лазурная Гавань снабжает рыбой всю республику. Умхар
+                на середине пути, там можно пересесть. Нежить здесь редкость.
+                Самый спокойный маршрут Акеша.
+              </div>
+              <div class="route-tags">
+                <span class="route-tag">Восток</span>
+                <span class="route-tag">Безопасный</span>
+                <span class="route-tag">Снабжение</span>
+              </div>
+            </div>
+
+            <div class="route-card">
+              <div class="route-name">Дун Морог → Вэйхольд</div>
+              <div class="route-distance">~700 км · 2 дня бронепоездом</div>
+              <div class="route-desc">
+                Западный тупик. Вэйхольд — последний город Акеша на западе.
+                Бронепоезда доходят только до него. За городом начинается
+                смешанный лес который быстро переходит в Дикость. Дальше нет
+                рельсов, нет станций, нет ничего. Те кто уходят за Вэйхольд идут
+                пешком — и возвращаются не все.
+              </div>
+              <div class="route-tags">
+                <span class="route-tag">Западная граница</span>
+                <span class="route-tag">Конец дорог</span>
+                <span class="route-tag">Дикость рядом</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- МЕСТНОСТЬ ПО РЕГИОНАМ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Среда</span>
+            <h2>Ландшафт и климат</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Дикие территории это не одно место. От тайги и болот Акеша до
+              открытых равнин и джунглей Вольных Городов — каждый регион убивает
+              по-своему.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Тайга — основной биом Акеша</div>
+            <p>
+              Большая часть территории республики — густая хвойная тайга. Темно,
+              сыро, тихо. Деревья стоят так плотно что в двадцати шагах уже не
+              видно человека. Зимой снег по пояс. Летом болота и гнус. Нежить
+              здесь есть, но рассеяна — лес не даёт им собираться в большие
+              группы. Зато в лесу легко потеряться навсегда даже без нежити.
+            </p>
+            <p>
+              <strong>Что это значит для путешествия:</strong> Бронепоезда идут
+              строго по рельсам — в сторону шаг и ты в лесу. Маршруты хорошо
+              знают только местные проводники. Нежить встречается поодиночке или
+              парами, редко стаями.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Смешанный лес у западной границы</div>
+            <p>
+              Чем дальше на запад от Вэйхольда — тем реже хвойные, тем больше
+              лиственные деревья. Лес становится светлее, но не безопаснее. Это
+              переходная зона между цивилизацией и Дикостью — инфраструктуры
+              нет, нежить здесь активнее чем в тайге, а людей почти нет. Дороги
+              старые, имперские, полузаросшие. Идти по ним можно, но медленно.
+            </p>
+            <p>
+              <strong>Что это значит для путешествия:</strong> Без проводника не
+              ходят. Рельсов нет. Ночевать лучше на дереве — нежить снизу,
+              призраки сверху реже. Нападения здесь регулярные.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Равнины между Акешем и Баронствами</div>
+            <p>
+              Травянистые равнины до горизонта. По осени здесь золотой океан
+              травы. По весне — болота которые тянут в землю. Руины имперских
+              городов торчат как кости. Здесь есть вода, есть относительно
+              твёрдая земля. Но нежить здесь умная — они охотятся
+              скоординировано, предсказуемо, смертельно.
+            </p>
+            <p>
+              <strong>Что это значит для путешествия:</strong> Видимость
+              хорошая, но нет где спрятаться. От большой группы нежити не
+              скроешься. Скорость в пути зависит от времени года — весной может
+              быть очень плохо.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Джунгли у Вольных Городов</div>
+            <p>
+              Первобытная растительность которая наступает на всё. Краски яркие
+              — зелень почти светится. Животные огромные и опасные. Нежить здесь
+              странная — джунгли как-то её меняют. Мертвецы обрастают лианами и
+              становятся почти частью ландшафта. Призраки здесь более
+              агрессивны, как будто джунгли их дразнят.
+            </p>
+            <p>
+              <strong>Что это значит для путешествия:</strong> Навигация
+              сложная, видимость плохая. Но есть где скрыться и спрятаться.
+              Болезни и влага — больше опасности чем нежить. Бронепоезда идут
+              медленно, часто расчищают путь.
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ТИПЫ НЕЖИТИ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Враги</span>
+            <h2>Виды нежити</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Не вся нежить одинакова. За тысячу лет мёртвые эволюционировали.
+              Развивались. Становились опаснее.
+            </p>
+          </div>
+
+          <div class="undead-grid">
+            <div class="undead-card">
+              <div class="undead-name">Мертвецы</div>
+              <div class="undead-activity">
+                Днём, в одиночку или небольшими группами
+              </div>
+              <div class="undead-desc">
+                Базовая нежить — восставшие тела без особого разума. Медленные,
+                вязкие, легко убиваются огнём или напалмом. Но их много. Очень
+                много. Когда их проходит стая из сотен — это становится
+                серьёзной проблемой.
+              </div>
+              <div class="undead-detail">
+                Иммунны к обычному оружию. Напалм работает. Огнемёты спасают
+                жизни.
+              </div>
+            </div>
+
+            <div class="undead-card">
+              <div class="undead-name">Разумные мертвецы</div>
+              <div class="undead-activity">
+                Днём, организованно, в группах до 20 особей
+              </div>
+              <div class="undead-desc">
+                Редкие. Опасные. Сохранили какую-то часть памяти и интеллекта.
+                Они охотятся, они стратегически думают. Они помнят как убивать
+                живых. Встреча с ними — это почти смерть. Никто не знает как они
+                появились.
+              </div>
+              <div class="undead-detail">
+                Используют оружие. Координируют атаки. Кажется, они учатся.
+              </div>
+            </div>
+
+            <div class="undead-card">
+              <div class="undead-name">Призраки</div>
+              <div class="undead-activity">Ночью, почти всегда</div>
+              <div class="undead-desc">
+                Духи умерших которые не могли найти покой. Они не из плоти — они
+                из светящейся энергии. Огонь и напалм их не убивают мгновенно,
+                но причиняют вред и отгоняют. Достаточно сильное пламя — и они
+                отступают. Они проходят через стены и убивают прикосновением.
+              </div>
+              <div class="undead-detail">
+                Штормы из призраков приходят с наступлением темноты. Днём они
+                скрываются под землёй. Держи факел — это не гарантия но лучше
+                чем ничего.
+              </div>
+            </div>
+
+            <div class="undead-card">
+              <div class="undead-name">Химеры</div>
+              <div class="undead-activity">
+                Редко, обычно в определённых местах
+              </div>
+              <div class="undead-desc">
+                Монстры которые собраны из нескольких мёртвых тел. Конечности
+                разных существ, головы в нескольких местах сразу. Это кто-то
+                делает специально. Или они так появляются — никто не знает. Они
+                опасны и безумны. Встреча с ними — это не обычный бой, это
+                кошмар.
+              </div>
+              <div class="undead-detail">
+                Сильнее обычной нежити в несколько раз. Огнём их не убить,
+                только разобрать на части.
+              </div>
+            </div>
+
+            <div class="undead-card">
+              <div class="undead-name">Тени</div>
+              <div class="undead-activity">
+                В разрушенных зданиях, особенно ночью
+              </div>
+              <div class="undead-desc">
+                Не совсем духи, не совсем твёрдые. Они движутся как вода, они
+                меняют форму. Оружие проходит сквозь них половину времени. Они
+                холодные и голодные. В руинах имперских зданий их особенно
+                много. Теория: они рождаются из отчаяния людей которые умирали в
+                этих стенах.
+              </div>
+              <div class="undead-detail">
+                От них помогает свет. Сильный, постоянный свет. Поэтому факелы и
+                паровые лампы спасают жизни.
+              </div>
+            </div>
+
+            <div class="undead-card">
+              <div class="undead-name">Чумные</div>
+              <div class="undead-activity">
+                Во влажных местах, в джунглях, возле болот
+              </div>
+              <div class="undead-desc">
+                Мёртвые которые гниют и распадаются даже в состоянии нежити. Они
+                источают болезнь буквально — вирусную, не чистую, живую. Тот кто
+                заразится чумой мёртвого — умрёт в течение недели в страшных
+                мучениях. Спасение только в лечении в городе, и то не всегда
+                помогает.
+              </div>
+              <div class="undead-detail">
+                Медленны — пуля с дистанции надёжнее всего. Огонь работает, но
+                брызги при горении разлетаются — риск заражения. Держи
+                расстояние.
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Важно помнить</div>
+            <p>
+              Нежить не ест пищу. Она не спит. Она не устаёт. Единственное что
+              её останавливает — физическое повреждение, огонь, химические
+              вещества или паровой удар нужной силы. Если вы видите нежить на
+              горизонте — у вас есть минуты чтобы спрятаться или убежать. Не
+              больше.
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ОПАСНОСТИ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Опасности</span>
+            <h2>Не только нежить</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Мёртвые — не единственная угроза. Пустоши опасны по многим
+              причинам.
+            </p>
+          </div>
+
+          <div class="hazard-list">
+            <div class="hazard-item">
+              <div class="hazard-name">Шрамы</div>
+              <div class="hazard-desc">
+                Аномальные зоны где физика работает неправильно. Там может быть
+                холоднее чем где-то ещё, или горячее. Гравитация может быть
+                странной. Время может течь по-другому. Входить в Шрам опасно. Но
+                в Шрамах добывают кристаллы которые питают города. Туда ходит
+                штрафбат — и немногие возвращаются живыми.
+              </div>
+            </div>
+
+            <div class="hazard-item">
+              <div class="hazard-name">Штормы из Шрамов</div>
+              <div class="hazard-desc">
+                Близко к Шрамам воздух становится нестабильным. Штормы выходят
+                из аномальных зон внезапно и без предупреждения. За минуты
+                видимость падает на ноль — смесь пыли, песка, и чего-то ещё.
+                Бронепоезда застревают. Люди теряются буквально рядом друг с
+                другом. Те кто попался в полнец шторма редко выходят из него
+                живыми, но прежними - никогда.
+              </div>
+            </div>
+
+            <div class="hazard-item">
+              <div class="hazard-name">Хищники</div>
+              <div class="hazard-desc">
+                Животные в пустошах выросли большими и свирепыми. В джунглях
+                есть вещи которые размером с дом и так же голодны. На равнинах
+                охотятся шакалы размером с человека. Они редче нежити, но они
+                реальнее — они живые, они мыслят, они охотятся организованно.
+              </div>
+            </div>
+
+            <div class="hazard-item">
+              <div class="hazard-name">Голод и жажда</div>
+              <div class="hazard-desc">
+                Путь может затянуться. Бронепоезд может сломаться. Вода
+                заканчивается. Еда заканчивается. Люди начинают умирать
+                медленнее чем от нежити, но они умирают. Это старый способ как
+                пустоши убивают — скука и отсутствие ресурсов.
+              </div>
+            </div>
+
+            <div class="hazard-item">
+              <div class="hazard-name">Безумие</div>
+              <div class="hazard-desc">
+                Долгое пребывание в пустошах — это стресс для психики. Люди
+                видят вещи. Слышат голоса. Тоска и отчаяние давят со всех
+                сторон. Есть целые истории про отряды которые наполовину схожили
+                с ума к тому моменту как пришли в город. Некоторые так и не
+                восстановились.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- НАХОДКИ И РЕСУРСЫ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Возможность</span>
+            <h2>Находки и ресурсы</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="section-body">
+            <p>
+              Для тех кто смел — пустоши щедры. Старая империя оставила после
+              себя богатства которые никто не собрал. Они там до сих пор,
+              погребённые под песком, охраняемые мёртвыми.
+            </p>
+          </div>
+
+          <div class="resource-grid">
+            <div class="resource-card">
+              <span class="resource-icon">⚱️</span>
+              <div class="resource-name">Артефакты</div>
+              <div class="resource-desc">
+                Механизмы, инструменты, оружие, украшения — всё что имперские
+                мастера создавали веками и что никто не трогал тысячу лет.
+                Материалы которых больше не находят. Конструкции которые никто
+                не может воспроизвести. Коллекционеры и города платят хорошие
+                деньги — лишь бы целые и рабочие.
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="resource-icon">💎</span>
+              <div class="resource-name">Кристаллы Шрамов</div>
+              <div class="resource-desc">
+                Ценнейший материал. Официально добывается только
+                государственными экспедициями. Если найти месторождение самому —
+                это либо миллионное состояние, либо разговор с людьми из Совета
+                о том почему ты лезешь куда не следует. Зависит от обстоятельств
+                и везения.
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="resource-icon">📚</span>
+              <div class="resource-name">Записи империи</div>
+              <div class="resource-desc">
+                Чертежи, карты, административные документы, технические
+                описания. Информация о том как была устроена империя — как
+                строились города, как работали системы защиты, где что
+                находилось. Учёные и правительства платят за это серьёзные
+                деньги.
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="resource-icon">🔑</span>
+              <div class="resource-name">Ключи и пропуска</div>
+              <div class="resource-desc">
+                Имперские ключи открывали системы городов. Рабочий ключ —
+                редкость и ценность. Правительства Вольных Городов купят их не
+                торгуясь. Акеш тоже интересуется — особенно теми что подходят к
+                запертым Залам Стражей.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- УРОВНИ ОПАСНОСТИ -->
+        <div class="section">
+          <div class="section-header">
+            <span class="section-badge">Справка</span>
+            <h2>Что значит разные зоны опасности</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Безопасный маршрут</div>
+            <p>
+              Бронепоезда по нему ходят регулярно. Инфраструктура есть. Главные
+              опасности — техническая поломка и необычные штормы. Нежить здесь
+              есть, но её можно избежать если быть начеку. Шанс вернуться живым
+              — очень высокий.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Умеренно опасный маршрут</div>
+            <p>
+              Бронепоезда ходят, но нечасто. Между станциями — длинные участки
+              без помощи. Нежить встречается регулярно. Требуется оружие и
+              навыки. Потери в отрядах обычны. Шанс вернуться живым —
+              неопределённый. Много зависит от удачи и подготовки.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Опасная зона</div>
+            <p>
+              Сюда ходят только экспедиции с хорошим вооружением. Нежита
+              встречается ежедневно. Встречи с разумной нежитью — предостаточно.
+              Штормы, животные, все остальное — это добавка к основной угрозе.
+              Шанс вернуться живым — низкий. Очень низкий.
+            </p>
+          </div>
+
+          <div class="info-block">
+            <div class="info-title">Смертельная зона</div>
+            <p>
+              Сюда не ходят обычные люди. Сюда ходит штрафбат потому что его
+              туда посылают. Это значит что вероятность смерти выше вероятности
+              жизни. Там может быть несколько мертвецов в одном месте, или Шрам,
+              или химеры. Каждое путешествие — это русская рулетка где барабан
+              заполнен почти целиком.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Пустоши Торна · Справочник выжившего · Помните — возвращение это не
+        гарантия
+      </div>
+    </div>
+  </body>
+</html>
