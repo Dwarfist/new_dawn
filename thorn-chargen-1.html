@@ -613,6 +613,48 @@
         padding-top: 1.5rem;
         border-top: 1px solid var(--border);
       }
+
+      /* ── FONT SIZE CONTROL ── */
+      .font-control {
+        position: fixed;
+        top: 9px;
+        right: 1.25rem;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+      .font-btn {
+        background: transparent;
+        border: 1px solid var(--gold-dim);
+        color: var(--gold-dim);
+        cursor: pointer;
+        font-family: "Cinzel", serif;
+        line-height: 1;
+        padding: 3px 7px;
+        transition:
+          color 0.15s,
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .font-btn:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+      .font-btn.active {
+        color: var(--gold);
+        border-color: var(--gold);
+        background: rgba(201, 168, 76, 0.1);
+      }
+      .font-btn.s {
+        font-size: 10px;
+      }
+      .font-btn.m {
+        font-size: 13px;
+      }
+      .font-btn.l {
+        font-size: 17px;
+      }
     </style>
   </head>
   <body>
@@ -666,6 +708,11 @@
       >
     </nav>
     <div style="height: 48px"></div>
+    <div class="font-control">
+      <button class="font-btn s active" onclick="setSize('s')">а</button>
+      <button class="font-btn m" onclick="setSize('m')">А</button>
+      <button class="font-btn l" onclick="setSize('l')">А</button>
+    </div>
     <div class="page">
       <div class="header">
         <div class="header-eyebrow">
@@ -683,9 +730,9 @@
           <h2>Отправная точка</h2>
           <div class="section-line"></div>
         </div>
-        <p>Вы — Первопроходцы Республики Акеш. Штрафные или нет — решаете вы сами.</p>
+        <p>Вы — Пионеры Республики Акеш. Штрафные или нет — решаете вы сами.</p>
         <p style="margin-top: 0.75rem">
-          Вас отобрал лично глава Отдела Первопроходцев Лазурной Гавани. Неделю вас
+          Вас отобрал лично глава Пионерского Отдела Лазурной Гавани. Неделю вас
           приучали работать вместе, после чего посадили на бронированный пароход
           и отправили в глубины океана.
         </p>
@@ -1364,5 +1411,14 @@
         человека. Восемь мест. Один мир.
       </div>
     </div>
+    <script>
+      var sizes = { s: "16px", m: "20px", l: "26px" };
+      function setSize(key) {
+        document.documentElement.style.fontSize = sizes[key];
+        document.querySelectorAll(".font-btn").forEach(function (b) {
+          b.classList.toggle("active", b.classList.contains(key));
+        });
+      }
+    </script>
   </body>
 </html>
