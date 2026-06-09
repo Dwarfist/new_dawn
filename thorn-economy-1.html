@@ -881,7 +881,20 @@
     <script>
       var sizes = { s: "16px", m: "20px", l: "26px" };
       function setSize(key) {
-        document.documentElement.style.fontSize = sizes[key];
+        // "s" (16px) maps to factor 1.0 -> original design; m/l scale up.
+        var factor = parseFloat(sizes[key]) / 16;
+        var nodes = [document.body].concat(
+          Array.prototype.slice.call(document.querySelectorAll("body *"))
+        );
+        nodes.forEach(function (el) {
+          // leave the fixed nav and the size control itself untouched
+          if (el.closest("nav") || el.closest(".font-control")) return;
+          // capture the original computed size once, then always scale from it
+          if (el.dataset.baseFs === undefined) {
+            el.dataset.baseFs = parseFloat(window.getComputedStyle(el).fontSize);
+          }
+          el.style.fontSize = el.dataset.baseFs * factor + "px";
+        });
         document.querySelectorAll(".font-btn").forEach(function (b) {
           b.classList.toggle("active", b.classList.contains(key));
         });

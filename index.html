@@ -799,7 +799,23 @@
     <script>
       var sizes = { s: "16px", m: "20px", l: "26px" };
       function setSize(key) {
-        document.documentElement.style.fontSize = sizes[key];
+        document
+          .querySelector("body")
+          .setAttribute("style", `font-size: ${sizes[key]}`);
+        document.querySelectorAll(".timeline-era").forEach((element) => {
+          element.setAttribute("style", `font-size: ${sizes[key]}`);
+        });
+        document.querySelectorAll(".section-header h2").forEach((element) => {
+          element.setAttribute(
+            "style",
+            `font-size: ${sizes[key].replace("px", "") * 1 + 10 + "px"}`,
+          );
+        });
+        document.querySelectorAll(".fact-title").forEach((element) => {
+          element.setAttribute("style", `font-size: ${sizes[key]}`);
+        });
+
+        console.log(document.querySelector("*"));
         document.querySelectorAll(".font-btn").forEach(function (b) {
           b.classList.toggle("active", b.classList.contains(key));
         });

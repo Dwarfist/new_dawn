@@ -882,8 +882,8 @@
                 серьёзной проблемой.
               </div>
               <div class="undead-detail">
-                Подготовленный воин сможет убить одного без особых проблем. Чем их больше - тем серьёзнее бой.
-                Лучше весго работает напалм или пар- итак медлительные почти останавливаются. 
+                Иммунны к обычному оружию. Напалм работает. Огнемёты спасают
+                жизни.
               </div>
             </div>
 
@@ -932,7 +932,8 @@
                 кошмар.
               </div>
               <div class="undead-detail">
-                Сильнее обычной нежити в несколько раз. К каждой нужно искать свой подход, смотря какие части в себе имеет.
+                Сильнее обычной нежити в несколько раз. Огнём их не убить,
+                только разобрать на части.
               </div>
             </div>
 
@@ -950,7 +951,7 @@
               </div>
               <div class="undead-detail">
                 От них помогает свет. Сильный, постоянный свет. Поэтому факелы и
-                лампы спасают жизни.
+                паровые лампы спасают жизни.
               </div>
             </div>
 
@@ -960,14 +961,15 @@
                 Во влажных местах, в джунглях, возле болот
               </div>
               <div class="undead-desc">
-                Мёртвые которые гниют и распадаются даже в состоянии нежизни. Они
+                Мёртвые которые гниют и распадаются даже в состоянии нежити. Они
                 источают болезнь буквально — вирусную, не чистую, живую. Тот кто
                 заразится чумой мёртвого — умрёт в течение недели в страшных
                 мучениях. Спасение только в лечении в городе, и то не всегда
                 помогает.
               </div>
               <div class="undead-detail">
-                Медленны — пуля с дистанции надёжнее всего. Огонь работает, но главное. Держи
+                Медленны — пуля с дистанции надёжнее всего. Огонь работает, но
+                брызги при горении разлетаются — риск заражения. Держи
                 расстояние.
               </div>
             </div>
@@ -978,7 +980,7 @@
             <p>
               Нежить не ест пищу. Она не спит. Она не устаёт. Единственное что
               её останавливает — физическое повреждение, огонь, химические
-              вещества. Если вы видите нежить на
+              вещества или паровой удар нужной силы. Если вы видите нежить на
               горизонте — у вас есть минуты чтобы спрятаться или убежать. Не
               больше.
             </p>
@@ -1188,7 +1190,20 @@
     <script>
       var sizes = { s: "16px", m: "20px", l: "26px" };
       function setSize(key) {
-        document.documentElement.style.fontSize = sizes[key];
+        // "s" (16px) maps to factor 1.0 -> original design; m/l scale up.
+        var factor = parseFloat(sizes[key]) / 16;
+        var nodes = [document.body].concat(
+          Array.prototype.slice.call(document.querySelectorAll("body *"))
+        );
+        nodes.forEach(function (el) {
+          // leave the fixed nav and the size control itself untouched
+          if (el.closest("nav") || el.closest(".font-control")) return;
+          // capture the original computed size once, then always scale from it
+          if (el.dataset.baseFs === undefined) {
+            el.dataset.baseFs = parseFloat(window.getComputedStyle(el).fontSize);
+          }
+          el.style.fontSize = el.dataset.baseFs * factor + "px";
+        });
         document.querySelectorAll(".font-btn").forEach(function (b) {
           b.classList.toggle("active", b.classList.contains(key));
         });
