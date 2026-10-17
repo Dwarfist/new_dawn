@@ -421,10 +421,10 @@
           <div class="race-body">
             <p>
               Тёмные Века научили их мастерить вещи из подручных средств. После
-              - улучшать. Потом - изобретать. Совеременные гоблины - шумные,
+              - улучшать. Потом - изобретать. Современные гоблины - шумные,
               хаотичные, параноидальные - и при этом одни из лучших механиков и
               взрывотехников Торна. Правда их изобретения редко работают так,
-              как задумано. Задо всегда есть эффект.
+              как задумано. Зато всегда есть эффект.
             </p>
           </div>
           <div class="tag-row">
@@ -466,6 +466,34 @@
             <span class="tag">Злопамятность</span>
           </div>
         </div>
+
+        <div class="divider"></div>
+
+        <div class="race">
+          <div class="race-name">Язык</div>
+          <div class="race-tagline">Имперский и его диалекты</div>
+          <div class="race-body">
+            <p>
+              Все говорят на <strong>Имперском</strong>. Он общий, просто
+              разбился на диалекты за девятьсот лет, но понять друг друга можно
+              везде. С письменностью иначе: у каждого сообщества она своя, и
+              чужие тексты без подготовки не прочесть.
+            </p>
+            <p>
+              Дозакатные тексты, оставшиеся от Древних, — не отдельный язык, а
+              архаичная форма того же Имперского. Орфография и грамматика
+              безнадёжно устарели, читать тяжело, почти как дореволюционный
+              русский для нас. Но особого обучения не нужно: смысл разберёт
+              любой грамотный персонаж, было бы время.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Имперский</span>
+            <span class="tag">Диалекты</span>
+            <span class="tag">Письменность</span>
+            <span class="tag">Архаика</span>
+          </div>
+        </div>
       </div>
 
       <div class="footer-note">
@@ -477,22 +505,7 @@
     <script>
       var sizes = { s: "16px", m: "20px", l: "26px" };
       function setSize(key) {
-        // "s" (16px) maps to factor 1.0 -> original design; m/l scale up.
-        var factor = parseFloat(sizes[key]) / 16;
-        var nodes = [document.body].concat(
-          Array.prototype.slice.call(document.querySelectorAll("body *")),
-        );
-        nodes.forEach(function (el) {
-          // leave the fixed nav and the size control itself untouched
-          if (el.closest("nav") || el.closest(".font-control")) return;
-          // capture the original computed size once, then always scale from it
-          if (el.dataset.baseFs === undefined) {
-            el.dataset.baseFs = parseFloat(
-              window.getComputedStyle(el).fontSize,
-            );
-          }
-          el.style.fontSize = el.dataset.baseFs * factor + "px";
-        });
+        document.documentElement.style.fontSize = sizes[key];
         document.querySelectorAll(".font-btn").forEach(function (b) {
           b.classList.toggle("active", b.classList.contains(key));
         });
